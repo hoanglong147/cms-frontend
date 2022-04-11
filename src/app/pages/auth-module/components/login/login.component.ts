@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { STATUS_CODE, STORAGE_KEY } from 'app/constant/constant';
+import { IUserAuthResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { ApiService } from 'app/services/api.service';
 import { HelperService } from 'app/services/helper.service';
 import { SubjectService } from 'app/services/subject.service';
@@ -31,8 +32,8 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.loginForm = this.fb.group({
-      username: [[], [Validators.required, Validators.email]],
-      password: ['', [this.validatePassword]]
+      username: [[], [Validators.required]],
+      password: ['', []]
     });
     this.registerForm = this.fb.group({
       usr: ['', [Validators.required, Validators.email]],
@@ -73,12 +74,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) return;
     // this.helperService.showFullLoading();
     this.loading = true;
-    this.apiService.login(this.loginForm.value).subscribe((res: any) => {
+    this.apiService.login(this.loginForm.value).subscribe((res: ServerResponse<IUserAuthResponse>) => {
       // console.log(res);
       this.loading = false;
       this.helperService.hideFullLoading();
       if (res['code'] == STATUS_CODE.SUCCESS) {
-        this.success(res);
+        this.success(res.data);
         this.helperService.showSuccess('', 'Login Success!!!');
       }
     }, (error) => {
@@ -103,11 +104,16 @@ export class LoginComponent implements OnInit {
       this.helperService.hideFullLoading();
     });
   }
-  success(res) {
-    const { token, user: data } = res.data;
+  success(res: IUserAuthResponse) {
+    const { token, username, email, role } = res;
+    const data = {
+      username,
+      email,
+      role
+    };
     localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify({
       token: token,
-      data: data
+      data
     }));
     this.cookieService.set(STORAGE_KEY.ACCESS_TOKEN, token, 365, '/');
     this.cookieService.set(STORAGE_KEY.USER_INFO, JSON.stringify(data), 365, '/');

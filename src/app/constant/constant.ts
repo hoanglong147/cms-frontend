@@ -38,3 +38,13 @@ export const INCOME_TYPE = [
   { id: '0', name: 'Income' },
   { id: '1', name: 'Expenditure' }
 ]
+export enum ROLE {
+  STAFF = "STAFF",
+  ADMIN = "ADMIN",
+  QA = "QA"
+}
+export enum LikeStatus {
+  INACTIVE = 1,
+  LIKE = 2,
+  DISLIKE = 3
+}

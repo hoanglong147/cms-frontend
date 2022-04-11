@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateChild } from '@angular/router';
+import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 import { STORAGE_KEY } from './constant/constant';
 import { SubjectService } from './services/subject.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate,CanActivateChild {
-  userInfo:any;
+export class AuthGuard implements CanActivate, CanActivateChild {
+  userInfo: any;
   constructor(
-      private router: Router,
-      private cookie: CookieService,
-      private subjectService: SubjectService,
+    private router: Router,
+    private cookie: CookieService,
+    private subjectService: SubjectService,
   ) { }
   canActivateChild(route: import('@angular/router').ActivatedRouteSnapshot, state: import('@angular/router').RouterStateSnapshot): boolean | import('@angular/router').UrlTree | import('rxjs').Observable<boolean | import('@angular/router').UrlTree> | Promise<boolean | import('@angular/router').UrlTree> {
     this.checkLogin();
-    if (!this.userInfo){
+    if (!this.userInfo) {
       this.router.navigateByUrl('/auth/login');
       return false;
     }
@@ -27,14 +26,14 @@ export class AuthGuard implements CanActivate,CanActivateChild {
   // tslint:disable-next-line:max-line-length
   canActivate(route: import('@angular/router').ActivatedRouteSnapshot, state: import('@angular/router').RouterStateSnapshot): boolean | import('@angular/router').UrlTree | import('rxjs').Observable<boolean | import('@angular/router').UrlTree> | Promise<boolean | import('@angular/router').UrlTree> {
     this.checkLogin();
-    if (!this.userInfo){
+    if (!this.userInfo) {
       this.router.navigateByUrl('/auth/login');
       return false;
     }
     return true;
   }
 
-  checkLogin(){
+  checkLogin() {
     this.subjectService.userInfo.subscribe((res: any) => {
       this.userInfo = res;
       if (!this.userInfo && this.cookie.get(STORAGE_KEY.USER_INFO)) {
@@ -43,5 +42,5 @@ export class AuthGuard implements CanActivate,CanActivateChild {
 
     });
   }
-  
+
 }

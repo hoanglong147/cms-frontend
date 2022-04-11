@@ -1,19 +1,14 @@
-import { Injectable, Injector } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpHeaders
+  HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
 import { STATUS_CODE, STORAGE_KEY } from './constant/constant';
-import { HelperService } from './services/helper.service';
-import { AuthService } from './services/auth.service';
-import { ApiService } from './services/api.service';
 import { ServerResponse } from './interfaces/serve-response';
+import { AuthService } from './services/auth.service';
+import { HelperService } from './services/helper.service';
 @Injectable()
 export class CommonInterceptor implements HttpInterceptor {
   private runIn: boolean = false;
@@ -38,7 +33,7 @@ export class CommonInterceptor implements HttpInterceptor {
     return next.handle(request.clone({
       headers
     })).pipe(tap((event: HttpEvent<any>) => {
-      const body: ServerResponse = event['body'];
+      const body: ServerResponse<any> = event['body'];
       if (body) {
         if (body.code === STATUS_CODE.ACCESS_DENIED && !this.runIn) {
           // console.log('interceptor',event);
@@ -47,19 +42,19 @@ export class CommonInterceptor implements HttpInterceptor {
           this.runIn = true;
           return;
         }
-        this.runIn = false; 
+        this.runIn = false;
       }
     }, (err: any) => {
       // this.logService.logAPIError(err, accessToken);
       console.log(err);
-      if(err.status == STATUS_CODE.SC_FORBIDDEN){
+      if (err.status == STATUS_CODE.SC_FORBIDDEN) {
         this.authService.logout();
       }
       let error = 'Something woring!!!';
-      if(err?.error?.error?.error_description){
+      if (err?.error?.error?.error_description) {
         error = err?.error?.error?.error_description;
       }
-      this.helperService.showError('',error);
+      this.helperService.showError('', error);
     }))
   }
 }

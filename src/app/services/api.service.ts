@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IUserAuthResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class ApiService {
 
   login(params) {
     const url = `${environment.apiUrl}user/login`;
-    return this.httpClient.post(url, params);
+    return this.httpClient.post<ServerResponse<IUserAuthResponse>>(url, params);
   }
   register(params) {
     const url = `${environment.apiUrl}user/register`;

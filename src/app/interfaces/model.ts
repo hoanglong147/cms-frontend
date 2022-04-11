@@ -1,3 +1,5 @@
+import { ROLE } from "app/constant/constant";
+
 export interface HistoryType {
     id: number,
     name: string,
@@ -43,5 +45,11 @@ export interface userProfile {
 
     expend?: number;
 
-    avatar?:string;
+    avatar?: string;
+}
+
+export interface IUser {
+    username: string;
+    email: string;
+    role: ROLE;
 }
