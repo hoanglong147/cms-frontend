@@ -1,0 +1,128 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from './user.model';
+import { environment } from 'src/environments/environment';
+import { Datalogin } from './data.model'
+
+export interface LoginResponseData {
+    token: string;
+    roles: string;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class LoginService {
+
+    user = new BehaviorSubject<User>(null);//BehaviorSubject để các component có thể lấy được giá trị cuối cùng của sự kiện thay đổi User, ngay cả sau khi sự kiện đấy xảy ra
+    private tokenExpirationTimer: any;
+    // private baseURL = window.location.protocol + '//' + window.location.host;
+
+    constructor(private http: HttpClient, private router: Router) { }
+
+    private loggedIn = false;
+
+    isLoggedIn() {
+        return this.loggedIn;
+    }
+
+    login(username: string, password: string) {
+
+        const data = new Datalogin();
+        data.username = username;
+        data.password = password;
+        let options = {
+            headers: new HttpHeaders().set('Content-Type', 'application/json')
+        };
+        return this.http
+            // .post<LoginResponseData>(this.baseURL + environment.apiLogin, data.toString(), options)//Dùng khi chuyển môi trường thật
+            .post<LoginResponseData>(environment.baseURL + environment.apiLogin, data, options)
+            .pipe(
+                catchError(this.handleError),
+                tap(resData => {
+                    this.handleAuthentication(
+                        username,
+                        resData.token
+                    );
+                })
+            );
+    }
+
+    autoLogin() {
+        const userData: {
+            username: string;
+            _token: string;
+            _expirationAt: number;
+        } = JSON.parse(localStorage.getItem('userData'));
+        if (!userData) {
+            return;
+        }
+        const loadedUser = new User(userData.username);
+        loadedUser.token = userData._token;
+        if (loadedUser.token) {
+            this.user.next(loadedUser);
+            const expirationDuration = loadedUser.expirationAt - (new Date()).getTime();
+            this.autoLogout(expirationDuration);
+        }
+    }
+
+    logout() {
+        this.user.next(null);
+        this.router.navigate(['/login']);
+        localStorage.removeItem('userData');
+        if (this.tokenExpirationTimer) {
+            clearTimeout(this.tokenExpirationTimer);
+        }
+        this.tokenExpirationTimer = null;
+    }
+
+    /**expirationDuration tính bằng ms */
+    autoLogout(expirationDuration: number) {
+        this.tokenExpirationTimer = setTimeout(() => {
+            this.logout();
+        }, expirationDuration);
+    }
+
+    /**xử lý đăng nhập */
+    private handleAuthentication(
+        username: string,
+        token: string
+    ) {
+        const user = new User(username);
+        user.token = token;
+        // console.log(user.token)
+        // const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        this.user.next(user);
+        this.autoLogout(user.expirationAt - (new Date()).getTime());
+        localStorage.setItem('userData', JSON.stringify(user));
+    }
+
+    /**xử lý lỗi khi đăng nhập */
+    private handleError(errorRes: HttpErrorResponse) {
+        let errorMessage: string;
+        if (errorRes.error) {
+            //  console.log(errorRes.error.code);
+            errorMessage = errorRes.error.message;
+        } else {
+            errorMessage = 'An unknown error occurred!';
+        }
+        return throwError(errorMessage);
+    }
+
+    //lấy từ class User
+    // parseJwt(token: string) {
+    //     const base64Url = token.split('.')[1];
+    //     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    //     const jsonPayload = decodeURIComponent(atob(base64));//không cần parse unicode
+    //     return JSON.parse(jsonPayload);
+    // };
+
+    /** Tạo request tạo user */
+    requestRegister(user: Datalogin) {
+        const url = new URL(environment.baseURL + '/user/register');
+        return this.http.post<Datalogin>(url.href, user);
+    }
+}

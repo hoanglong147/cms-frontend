@@ -1,0 +1,280 @@
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <app-navbar></app-navbar>
+
+    <div class="container-fluid">
+        <div id="content-header" class="row m-2">
+            <div class="mr-auto d-flex">
+                <h2>Department</h2>
+                <img src="./assets/icon/outlined/suggested/question-circle.svg" class="icon-md icon-muted"
+                    style="margin: 0.8rem">
+            </div>
+            <div>
+                <button type="button" class="btn btn-sm shadow-none btn-secondary m-1" (click)="onAddCategory()">
+                    <img src="./assets/icon/outlined/suggested/plus.svg" class="icon-sm icon-white">
+                    New Catagory
+                </button>
+                <!-- <button class="mr-auto d-flex" type="button"
+                class="btn btn-sm shadow-none btn-secondary m-1" (click)="onSearchcategory(null)">
+                Search
+                <img src="./assets/icon/outlined/application/search.svg" class="icon-sm icon-white">
+            </button> -->
+                <button *ngIf="!isCollapsedFilter" type="button" class="btn btn-sm shadow-none btn-secondary m-1"
+                    (click)="isCollapsedFilter=!isCollapsedFilter">
+                    Collapse
+                    <img src="./assets/icon/outlined/directional/arrow-right.svg" class="icon-sm icon-white">
+                </button>
+                <button *ngIf="isCollapsedFilter" type="button" class="btn btn-sm shadow-none btn-secondary m-1"
+                    (click)="isCollapsedFilter=!isCollapsedFilter">
+                    Expand
+                    <img src="./assets/icon/outlined/directional/arrow-left.svg" class="icon-sm icon-white">
+                </button>
+            </div>
+        </div>
+        <div id="content" class="d-flex flex-row">
+            <div class="search-result">
+                <div class="table-border">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ideaId</th>
+                                <th>staffId</th>
+                                <th>description</th>
+                                <th>totalLike</th>
+                                <th>totalComment</th>
+                                <th>timeUp</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let idea of ideas">
+                                <td>
+                                    <div class="text-primary">{{idea.ideaId}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{idea.staffId}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{idea.description}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{idea.totalLike}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{idea.totalComment}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{idea.timeUp}}</div>
+                                </td>
+                                <td>
+                                    <button class="btn shadow-none btn-sm btn-info" style="margin-right: 10px;"
+                                        (click)="openModalComment(idea.ideaId)">
+                                        <img src=" ./assets/icon/outlined/editor/edit.svg" class="icon-sm icon-white">
+                                        Comment
+                                    </button>
+                                    <button class="btn shadow-none btn-sm btn-info">Manage
+                                        <img src="./assets/icon/outlined/application/select.svg"
+                                            class="icon-sm icon-white">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- <tbody>
+                            <tr *ngFor="let comment of comments">
+                                <td>
+                                    <div class="text-primary">{{comment.content}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{comment.staffId}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">a</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">a</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">a</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">a</div>
+                                </td>
+                                <td>
+                                    <button class="btn shadow-none btn-sm btn-info" style="margin-right: 10px;">
+                                        <img src=" ./assets/icon/outlined/editor/edit.svg" class="icon-sm icon-white">
+                                        Comment
+                                    </button>
+                                    <button class="btn shadow-none btn-sm btn-info">Manage
+                                        <img src="./assets/icon/outlined/application/select.svg"
+                                            class="icon-sm icon-white">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody> -->
+                    </table>
+                </div>
+                <app-pagging></app-pagging>
+            </div>
+            <div class="filter" id="filter" [class.filter-collapsed]="isCollapsedFilter">
+                <div class="filter-panel" style="background-color: #FAFAFA;">
+                    <div class="row" *ngFor="let category of categorys" style="margin-left: 0px; margin-bottom: 15px;"
+                        [attr.hidden]="category.name ==null  ? '' : null">
+                        <div style="width: 65%;">
+                            <button class="btn shadow-none btn-sm btn-muted"
+                                style="width: 100%;; margin-right: 15px;">{{category.name}}</button>
+                            <!-- <button class="btn shadow-none btn-sm btn-muted"
+                                style="width: 100%;; margin-right: 15px;">{{category.id}}</button> -->
+                        </div>
+                        <div style="margin-left: 15px;">
+                            <button type="button" class="btn btn-sm btn-secondary shadow-none"
+                                (click)="onEditCategory(category.id)">
+                                <img src=" ./assets/icon/outlined/editor/edit.svg" class="icon-sm icon-white">
+                            </button>
+                            <button class="btn shadow-none btn-sm" (click)="onDeleteCategory(category.id)">
+                                <img src=" ./assets/icon/outlined/editor/delete.svg" class="icon-md icon-danger">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /#page-content-wrapper -->
+
+    <ng-template #modalComment let-modal1>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Comment</h4>
+            <button id="btnCloseModalEdit" type="button" class="close" aria-label="Close"
+                (click)="modal1.dismiss('close')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div style="border: solid 1px #E8E8E8;border-radius: 6px;">
+                    <form>
+                        <table class="table form-group" *ngFor="let comment of comments">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="text-primary" style="width: 200px;">staffId </th>
+                                    <td [attr.hidden]="comment.anonymous ? '' : null">
+                                        <b class="text-muted">anonymous</b>
+                                    </td>
+                                    <td [attr.hidden]="!comment.anonymous ? '' : null">
+                                        <b class="text-muted">{{comment.staffId}}</b>
+                                    </td>
+                                    <!-- <td> <b class="text-muted">{{comment.staffId}}</b> </td> -->
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-primary" style="width: 200px;"> content</th>
+                                    <td> <b class="text-muted">{{comment.content}}</b> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="mr-auto">
+                <form #formCreate="ngForm">
+                    <label for="">staffID</label>
+                    <input class="form-control" style="width: 160%;" ngModel name="content" placeholder="comment">
+                    <div>
+                        <!-- <label for="">Status</label>
+                        <select class="form-control" ngModel name="status">
+                            <option class="text-success" value="1">Active</option>
+                            <option class="text-danger" value="0">Inactive</option>
+                        </select> -->
+                        <input type="checkbox" ngModel name="status" value="1">Active
+                    </div>
+                </form>
+                <div>
+                    <button style="margin-top: 40px;" type="button" class="btn btn-sm btn-secondary"
+                        (click)="onCreateComment(formCreate)">
+                        Comment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+    <ng-template #modalAddcategory let-modal1>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add Category</h4>
+            <button id="btnCloseModalEdit" type="button" class="close" aria-label="Close"
+                (click)="modal1.dismiss('close')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div style="border: solid 1px #E8E8E8;border-radius: 6px;">
+                    <form #formCreate="ngForm">
+                        <div class="form-group">
+                            <div>
+                                <label for="">Category Name</label>
+                                <input class="form-control" ngModel name="categoryname">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <div class="mr-auto">
+                            <button type="button" class="btn btn-sm btn-secondary"
+                                (click)="onCreateCategory(formCreate)">Save</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-secondary" (click)=" modal1.dismiss('close')">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </ng-template>
+
+    <ng-template #modalEditcategory let-modal1>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+            <button id="btnCloseModalEdit" type="button" class="close" aria-label="Close"
+                (click)="modal1.dismiss('close')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div style="border: solid 1px #E8E8E8;border-radius: 6px;">
+                    <form #formCreate="ngForm">
+                        <div class="form-group">
+                            <div>
+                                <label for="">Category Name</label>
+                                <b class="text-muted" hidden>{{editingcategory.id}}</b>
+                                <input class="form-control" required ngModel name="name"
+                                    [ngModel]="editingcategory.name">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <div class="mr-auto">
+                            <button type="button" class="btn btn-sm btn-secondary"
+                                (click)="onEditUser(formCreate)">Save</button>
+                        </div>
+                        <div>
+                            <button type=" button" class="btn btn-sm btn-secondary" (click)=" modal1.dismiss('close')">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </ng-template>

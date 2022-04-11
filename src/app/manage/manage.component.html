@@ -1,0 +1,103 @@
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <app-navbar></app-navbar>
+    <div class="container-fluid">
+        <div id="content-header" class="row m-2">
+            <div class="mr-auto d-flex">
+                <h2>Manage Department</h2>
+                <img src="./assets/icon/outlined/suggested/question-circle.svg" class="icon-md icon-muted"
+                    style="margin: 0.8rem">
+            </div>
+
+            <div>
+                <!-- <button type="button" class="btn btn-sm shadow-none btn-secondary m-1">
+                    <img src="./assets/icon/outlined/suggested/plus.svg" class="icon-sm icon-white">
+                    New Department
+                </button> -->
+                <button *ngIf="!isCollapsedFilter" type="button" class="btn btn-sm shadow-none btn-secondary m-1"
+                    (click)="isCollapsedFilter=!isCollapsedFilter">
+                    Collapse
+                    <img src="./assets/icon/outlined/directional/arrow-right.svg" class="icon-sm icon-white">
+                </button>
+                <button *ngIf="isCollapsedFilter" type="button" class="btn btn-sm shadow-none btn-secondary m-1"
+                    (click)="isCollapsedFilter=!isCollapsedFilter">
+                    Expand
+                    <img src="./assets/icon/outlined/directional/arrow-left.svg" class="icon-sm icon-white">
+                </button>
+            </div>
+        </div>
+
+        <div id="content" class="d-flex flex-row">
+            <div class="search-result">
+                <div class="table-border">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Department</th>
+                                <th>Management QA</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- fix lỗi -->
+                            <tr *ngFor="let project of projects">
+                                <td>
+                                    <div>
+                                        <div class="text-primary">{{project.id}}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{project.name}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-primary">{{project.qaName}}</div>
+                                </td>
+                                <td>
+                                    <button class="btn shadow-none btn-sm">
+                                        <img src=" ./assets/icon/outlined/editor/edit.svg"
+                                            class="icon-sm icon-secondary">
+                                    </button>
+                                    <button class="btn shadow-none btn-sm btn-info"
+                                        (click)="onManageDepartment(project.id )">Manage
+                                        <img src="./assets/icon/outlined/application/select.svg"
+                                            class="icon-sm icon-white">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <app-pagging></app-pagging>
+            </div>
+            <div class="filter" [class.filter-collapsed]="isCollapsedFilter">
+                <div class="filter-panel" style="background-color: #FAFAFA;">
+                    <form #formFilter="ngForm">
+                        <div class="form-group">
+                            <div>
+                                <label for="">ID, Department, Management QA</label>
+                                <input class="form-control" ngModel name="key">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                        <div class="mr-auto">
+                            <button class="mr-auto d-flex" type="button" class="btn btn-sm  btn-secondary m-1"
+                                (click)="onSearch(null)">
+                                Search
+                                <img src="./assets/icon/outlined/application/search.svg" class="icon-sm icon-white">
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm  btn-secondary m-1" (click)="onClearFilterForm()">
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
