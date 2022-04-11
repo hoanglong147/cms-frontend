@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IDepartmentResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
+import { ICategoryResponse, IDepartmentResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -91,6 +91,10 @@ export class ApiService {
   getSession(params) {
     const url = `${environment.apiUrl}departments`;
     return this.httpClient.get<ServerResponse<ServerPaginationResponse<IDepartmentResponse>>>(url, { params });
+  }
+  getAllCategory() {
+    const url = `${environment.apiUrl}category`;
+    return this.httpClient.get<ServerResponse<ICategoryResponse[]>>(url);
   }
 }
 

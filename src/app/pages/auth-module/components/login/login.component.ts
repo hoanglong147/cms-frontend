@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.loginForm = this.fb.group({
-      username: ['nam23', [Validators.required]],
+      username: ['thinh12', [Validators.required]],
       password: ['123', []]
     });
     this.registerForm = this.fb.group({

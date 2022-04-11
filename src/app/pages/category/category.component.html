@@ -1,1 +1,47 @@
-<p>category works!</p>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title"> Simple Table</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <th>
+            ID
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Status
+          </th>
+          <th class="text-right">
+            Create At
+          </th>
+          <th>
+            Action
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of categories$ | async">
+            <td>
+              {{item.id}}
+            </td>
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+              {{item.active}}
+            </td>
+            <td>
+              {{item.createdDate | date:'short'}}
+            </td>
+            <td>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

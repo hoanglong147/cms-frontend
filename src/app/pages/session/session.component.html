@@ -1,1 +1,53 @@
-<p>session works!</p>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title"> Simple Table</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <th>
+            Name
+          </th>
+          <th>
+            Creator
+          </th>
+          <th>
+            Start Time
+          </th>
+          <th class="text-right">
+            End time idea
+          </th>
+          <th class="text-right">
+            End Time
+          </th>
+          <th>
+            Action
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of sessions">
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+              {{item.qaName}}
+            </td>
+            <td>
+              {{item.startDate | date:'short'}}
+            </td>
+            <td class="text-right">
+              {{item.closureDateIdea | date:'short'}}
+            </td>
+            <td class="text-right">
+              {{item.clouserDate | date:'short'}}
+            </td>
+            <td>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

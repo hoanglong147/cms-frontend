@@ -27,3 +27,10 @@ export interface IDepartmentResponse {
   closureDateIdea: string;
   clouserDate: string;
 }
+
+export interface ICategoryResponse {
+  createdDate: string;
+  name: string;
+  active: boolean;
+  id: number;
+}
