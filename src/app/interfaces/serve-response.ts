@@ -7,9 +7,23 @@ export interface ServerResponse<T> {
   error: string;
 }
 
+export interface ServerPaginationResponse<T> {
+  items: T[];
+  total: number;
+}
+
 export interface IUserAuthResponse {
   token: string;
   username: string;
   email: string;
   roles: ROLE
+}
+
+export interface IDepartmentResponse {
+  id: number;
+  name: string;
+  qaName: string;
+  startDate: string;
+  closureDateIdea: string;
+  clouserDate: string;
 }

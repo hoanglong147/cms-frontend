@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
+import { IDepartmentResponse } from 'app/interfaces/serve-response';
 import { Subscription } from 'rxjs';
 import { IdeasService } from '../../services/ideas.service';
 
@@ -15,7 +16,7 @@ export class LayoutSessionComponent implements OnInit {
     page: 0,
     size: PAGE_SIZE
   }
-  sessions = [];
+  sessions: IDepartmentResponse[] = [];
   constructor(
     private ideaService: IdeasService
   ) { }
@@ -27,7 +28,8 @@ export class LayoutSessionComponent implements OnInit {
   getSession() {
     this.ideaService.getSession(this.params).subscribe(res => {
       if (res.code === STATUS_CODE.SUCCESS) {
-        this.sessions = res.data;
+        const { items, total } = res.data;
+        this.sessions = items;
       }
       console.log('sessions', res);
     })

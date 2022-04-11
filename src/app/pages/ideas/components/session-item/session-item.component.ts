@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IDepartmentResponse } from 'app/interfaces/serve-response';
 
 @Component({
   selector: 'spending-session-item',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./session-item.component.scss']
 })
 export class SessionItemComponent implements OnInit {
-
+  @Input() session: IDepartmentResponse = {} as IDepartmentResponse;
   constructor() { }
 
   ngOnInit(): void {
