@@ -11,5 +11,5 @@ export interface IUserAuthResponse {
   token: string;
   username: string;
   email: string;
-  role: ROLE
+  roles: ROLE
 }

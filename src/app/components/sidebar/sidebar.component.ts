@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, NavigationEnd, ParamMap, Router } from '@angular/router';
-import { STORAGE_KEY } from 'app/constant/constant';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ROLE, STORAGE_KEY } from 'app/constant/constant';
+import { IUser } from 'app/interfaces/model';
 import { ParamsProviderService } from 'app/services/params-provider.service';
 import { SubjectService } from 'app/services/subject.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 
 
 export interface RouteInfo {
@@ -13,15 +13,16 @@ export interface RouteInfo {
     title: string;
     icon: string;
     class: string;
-    id?: number
+    id?: number;
+    auth: ROLE[];
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
-    { path: '/note', title: 'Note', icon: 'nc-book-bookmark', class: '' },
-    { path: '/profile', title: 'User Profile', icon: 'nc-single-02', class: '' },
-    { path: '/settings', title: 'Settings', icon: 'nc-settings-gear-65', class: '' },
-    { path: '/user/dummy/1', title: 'dummy', icon: 'nc-circle-10', class: 'profile', id: 1 },
+    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
+    { path: '/ideas', title: 'Feeds ideas', icon: 'nc-book-bookmark', class: '', auth: [ROLE.ADMIN, ROLE.ADMIN, ROLE.STAFF] },
+    { path: '/session', title: 'Sessions', icon: 'nc-single-02', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
+    { path: '/category', title: 'Category', icon: 'nc-settings-gear-65', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
+    { path: '/staff', title: 'Staffs', icon: 'nc-circle-10', class: 'profile', auth: [ROLE.ADMIN] },
     // { path: '/icons', title: 'Icons', icon: 'nc-diamond', class: '' },
     // { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '' },
     // { path: '/notifications', title: 'Notifications', icon: 'nc-bell-55', class: '' },
@@ -39,7 +40,7 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit, OnDestroy {
     public menuItems = ROUTES.filter(menuItem => menuItem);
-    userInfo: any;
+    userInfo: IUser = {} as IUser;
     unSubscription: Subscription;
     constructor(
         private router: Router,
@@ -49,34 +50,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
         private ppService: ParamsProviderService
     ) {
         this.unSubscription = new Subscription();
-        const params = this.ppService.getParamsRouter().subscribe((res: NavigationEnd) => {
-            const { url } = res;
-            if (url.indexOf('user') > -1) {
-                const [id, name, ...left] = url.split('/').reverse();
-                let $index = -1;
-                this.menuItems.forEach((x: RouteInfo, index) => {
-                    if (x.id) {
-                        x.path = `/user/${name}/${id}`;
-                        x.title = name;
-                        $index = index;
-                    }
-                });
-                if ($index > -1) {
-                    const item = { ...this.menuItems[$index] };
-                    this.menuItems.splice($index, 1, item);
-                }
-            }
-        });
-        this.unSubscription.add(params);
     }
     ngOnInit(): void {
         //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
         //Add 'implements OnInit' to the class.
-        const info = this.subjectService.userInfo.subscribe((res: any) => {
+        const info = this.subjectService.userInfo.subscribe((res: IUser) => {
             this.userInfo = res;
             if (!this.userInfo && this.cookieService.get(STORAGE_KEY.USER_INFO)) {
                 this.userInfo = JSON.parse(this.cookieService.get(STORAGE_KEY.USER_INFO));
             }
+            this.menuItems = ROUTES.filter(route => route.auth.includes(this.userInfo.roles));
         });
 
         this.unSubscription.add(info);

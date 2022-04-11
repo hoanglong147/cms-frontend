@@ -1,31 +1,24 @@
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ErrorHandler, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ToastrModule } from 'ngx-toastr';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-
-import { AppComponent } from './app.component';
-
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { PipesModule } from "./pipes/pipes.module";
-import { AppRoutingModule } from "./app-routing/app-routing.module";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { CommonInterceptor } from "./common.interceptor";
-import { GlobalErrorHandler } from "./global-error-handler";
-import { CookieService } from "ngx-cookie-service";
-import { AuthGuard } from "./auth.guard";
-import { DirectivesModule } from "./directives/directives.module";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { AdminModule } from "./pages/admin-module/admin.module";
-import { SharedModule } from "./shared/shared/shared.module";
 import { CommonModule } from "@angular/common";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ErrorHandler, NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CookieService } from "ngx-cookie-service";
+import { ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from "./app-routing/app-routing.module";
+import { AppComponent } from './app.component';
+import { AuthGuard } from "./auth.guard";
+import { CommonInterceptor } from "./common.interceptor";
+import { DirectivesModule } from "./directives/directives.module";
+import { GlobalErrorHandler } from "./global-error-handler";
+import { PipesModule } from "./pipes/pipes.module";
+import { SharedModule } from "./shared/shared/shared.module";
+
+
+
 
 
 @NgModule({

@@ -21,7 +21,10 @@ export const AdminRoutes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard' },
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'profile', component: UserComponent },
+            { path: 'ideas', loadChildren: () => import('../ideas/ideas.module').then(m => m.IdeasModule) },
+            { path: 'session', loadChildren: () => import('../session/session.module').then(m => m.SessionModule) },
+            { path: 'category', loadChildren: () => import('../category/category.module').then(m => m.CategoryModule) },
+            { path: 'staff', loadChildren: () => import('../staff/staff.module').then(m => m.StaffModule) },
             { path: 'table', component: TableComponent },
             { path: 'typography', component: TypographyComponent },
             { path: 'icons', component: IconsComponent },

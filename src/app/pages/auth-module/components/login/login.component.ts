@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.loginForm = this.fb.group({
-      username: [[], [Validators.required]],
-      password: ['', []]
+      username: ['nam23', [Validators.required]],
+      password: ['123', []]
     });
     this.registerForm = this.fb.group({
       usr: ['', [Validators.required, Validators.email]],
@@ -105,11 +105,11 @@ export class LoginComponent implements OnInit {
     });
   }
   success(res: IUserAuthResponse) {
-    const { token, username, email, role } = res;
+    const { token, username, email, roles } = res;
     const data = {
       username,
       email,
-      role
+      roles
     };
     localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify({
       token: token,
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
     this.cookieService.set(STORAGE_KEY.ACCESS_TOKEN, token, 365, '/');
     this.cookieService.set(STORAGE_KEY.USER_INFO, JSON.stringify(data), 365, '/');
 
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/ideas');
     this.subjectService.userInfo.next(data);
   }
 }

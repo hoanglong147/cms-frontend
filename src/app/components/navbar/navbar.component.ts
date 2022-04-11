@@ -1,16 +1,16 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ROUTES } from '../../sidebar/sidebar.component';
-import { NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { STATUS_CODE } from 'app/constant/constant';
+import { ApiService } from 'app/services/api.service';
 import { AuthService } from 'app/services/auth.service';
 import { HelperService } from 'app/services/helper.service';
-import { ApiService } from 'app/services/api.service';
-import { SubjectService } from 'app/services/subject.service';
-import { Subject, Subscription } from 'rxjs';
-import { INCOME_TYPE_CODE, STATUS_CODE } from 'app/constant/constant';
-import * as moment from 'moment';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ParamsProviderService } from 'app/services/params-provider.service';
+import { SubjectService } from 'app/services/subject.service';
+import * as moment from 'moment';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ROUTES } from '../../components/sidebar/sidebar.component';
 
 @Component({
   moduleId: module.id,
@@ -41,10 +41,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   unSubscrition: Subscription;
   //search
   nextSearchText: Subject<String>;
-  searchString:String = '';
+  searchString: String = '';
   searchList: any[] = [];
-  loadSearch:boolean = false;
-  
+  loadSearch: boolean = false;
+
   @ViewChild("navbar-cmp", { static: false }) button;
   @ViewChild("ddscroll", { static: false }) ddscroll: ElementRef;
   constructor(
@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private helperService: HelperService,
     private apiService: ApiService,
     private subjectService: SubjectService,
-    private ppService:ParamsProviderService
+    private ppService: ParamsProviderService
   ) {
     this.location = location;
     this.nativeElement = element.nativeElement;
@@ -66,8 +66,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.audio = new Audio();
     this.audio.src = "../../../assets/audio/notification__ding.wav";
     this.audio.load();
-    const params = this.ppService.getParamsRouter().subscribe((res:NavigationEnd) => {
-      if(res){
+    const params = this.ppService.getParamsRouter().subscribe((res: NavigationEnd) => {
+      if (res) {
         this.getTitle(res.url);
       }
     });
@@ -90,7 +90,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const search = this.nextSearchText.pipe(debounceTime(500), distinctUntilChanged()).subscribe((res: String) => {
       if (res && res != '') {
         this.getListSearch(res.toLocaleLowerCase());
-      }else{
+      } else {
         this.loadSearch = false;
       }
     })
@@ -104,17 +104,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //Add 'implements OnDestroy' to the class.
     this.unSubscrition.unsubscribe();
   }
-  getListSearch(text){
+  getListSearch(text) {
     const param = {
-      name:text
+      name: text
     }
-    this.apiService.search(param).subscribe((res:any) => {
+    this.apiService.search(param).subscribe((res: any) => {
       this.loadSearch = false;
-      if(res['code'] == STATUS_CODE.SUCCESS){
+      if (res['code'] == STATUS_CODE.SUCCESS) {
         const data = res.data.data;
         this.searchList = data;
       }
-    },(error) => this.loadSearch = false);
+    }, (error) => this.loadSearch = false);
   }
   getNotification() {
     this.loading = true;
@@ -141,22 +141,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     })
   }
-  getTitle(url:String) {
+  getTitle(url: String) {
     if (url.charAt(0) === '#') {
       url = url.slice(1);
     }
-    if(url.indexOf('user') > -1){
-      const [id,name] = url.split('/').reverse();
+    if (url.indexOf('user') > -1) {
+      const [id, name] = url.split('/').reverse();
       this.titles = name;
       return;
     }
     const some = ROUTES.some(x => {
-      if(url === x.path){
+      if (url === x.path) {
         this.titles = x.title; return true;
       }
       return false;
     });
-    if(!some){
+    if (!some) {
       this.titles = 'Dashboard';
     }
   }

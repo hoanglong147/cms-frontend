@@ -51,5 +51,5 @@ export interface userProfile {
 export interface IUser {
     username: string;
     email: string;
-    role: ROLE;
+    roles: ROLE;
 }
