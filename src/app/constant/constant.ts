@@ -48,3 +48,5 @@ export enum LikeStatus {
   LIKE = 2,
   DISLIKE = 3
 }
+
+export const PAGE_SIZE = 20;

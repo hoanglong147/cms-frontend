@@ -117,22 +117,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }, (error) => this.loadSearch = false);
   }
   getNotification() {
-    this.loading = true;
-    this.apiService.getNotification(this.params).subscribe((res: any) => {
-      this.loading = false;
-      if (res['code'] == STATUS_CODE.SUCCESS) {
-        const { notification, unread, totals } = res.data;
-        notification.forEach(element => {
-          element.lastUpdate = moment(element.lastUpdate).fromNow();
-        });
-        this.notification.unshift(...notification);
-        if (unread > this.unRead) {
-          this.audio.play();
-        }
-        this.unRead = unread;
-        this.params.totals = totals;
-      }
-    }, (error) => this.loading = false);
+    // this.loading = true;
+    // this.apiService.getNotification(this.params).subscribe((res: any) => {
+    //   this.loading = false;
+    //   if (res['code'] == STATUS_CODE.SUCCESS) {
+    //     const { notification, unread, totals } = res.data;
+    //     notification.forEach(element => {
+    //       element.lastUpdate = moment(element.lastUpdate).fromNow();
+    //     });
+    //     this.notification.unshift(...notification);
+    //     if (unread > this.unRead) {
+    //       this.audio.play();
+    //     }
+    //     this.unRead = unread;
+    //     this.params.totals = totals;
+    //   }
+    // }, (error) => this.loading = false);
   }
   signNotification() {
     this.apiService.signNotification().subscribe((res: any) => {

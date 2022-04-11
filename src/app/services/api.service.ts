@@ -86,5 +86,11 @@ export class ApiService {
     const url = `${environment.apiUrl}uploadFile`;
     return this.httpClient.post(url, params);
   }
+
+  // cms
+  getSession(params) {
+    const url = `${environment.apiUrl}departments`;
+    return this.httpClient.get<ServerResponse<any>>(url, { params });
+  }
 }
 
