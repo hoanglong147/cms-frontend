@@ -1,0 +1,94 @@
+<p class="tip">Click on button in image container</p>
+<div class="cont" [ngClass]="{'s--signup': signIn}">
+  <form>
+    <div class="form sign-in" [formGroup]="loginForm">
+      <h2>Welcome back,</h2>
+      <label>
+        <span>Email</span>
+        <input type="email" formControlName="username" />
+        <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required">
+          <span class="text-danger">Email required</span>
+        </div>
+        <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.email">
+          <span class="text-danger">Email invalid</span>
+        </div>
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" formControlName="password" />
+        <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">
+          <span class="text-danger">Password required</span>
+        </div>
+        <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.containChineseChar">
+          <span class="text-danger">Password contained chinese characters</span>
+        </div>
+        <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.invalidPassword">
+          <span class="text-danger">Password must include at least 8 characters, 1 uppercase & lowercase letter</span>
+        </div>
+      </label>
+      <p class="forgot-pass">Forgot password?</p>
+      <button type="submit" class="submit" (click)="login()" spendingSpinButton [loading]="loading">Sign In</button>
+      <!-- <button type="button" class="fb-btn">Connect with <span>facebook</span></button> -->
+    </div>
+  </form>
+  <div class="sub-cont">
+    <div class="img">
+      <div class="img__text m--up">
+        <h2>New here?</h2>
+        <p>Sign up and managerment your future!</p>
+      </div>
+      <div class="img__text m--in">
+        <h2>One of us?</h2>
+        <p>If you already has an account, just sign in. We've missed you!</p>
+      </div>
+      <div class="img__btn" (click)="signToggle()">
+        <span class="m--up">Sign Up</span>
+        <span class="m--in">Sign In</span>
+      </div>
+    </div>
+    <form>
+      <div class="form sign-up" [formGroup]="registerForm">
+        <h2>Time to feel like home,</h2>
+        <label>
+          <span>Name</span>
+          <input type="text" formControlName="name" />
+          <div *ngIf="registerForm.controls.name.touched && registerForm.controls.name.errors?.required">
+            <span class="text-danger">Name required</span>
+          </div>
+
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" formControlName="usr" />
+          <div *ngIf="registerForm.controls.usr.touched && registerForm.controls.usr.errors?.required">
+            <span class="text-danger">Email required</span>
+          </div>
+          <div *ngIf="registerForm.controls.usr.touched && registerForm.controls.usr.errors?.email">
+            <span class="text-danger">Email invalid</span>
+          </div>
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" formControlName="pwd" />
+          <div *ngIf="registerForm.controls.pwd.touched">
+            <span class="text-danger" *ngIf="registerForm.controls.pwd.errors?.required">Password required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.pwd.errors?.containChineseChar">Password contained
+              chinese characters</span>
+            <span class="text-danger" *ngIf="registerForm.controls.pwd.errors?.invalidPassword">Password must include at
+              least 8 characters, 1 uppercase & lowercase letter</span>
+          </div>
+        </label>
+        <label>
+          <span>Confirm Password</span>
+          <input type="password" formControlName="c_pwd">
+          <div *ngIf="registerForm.controls.c_pwd.touched">
+            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.required">Confirm Password required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.invalidConfirmPassword">Password not matched</span>
+          </div>
+        </label>
+        <button type="button" class="submit" (click)="signUp()" spendingSpinButton [loading]="loading">Sign Up</button>
+        <!-- <button type="button" class="fb-btn">Join with <span>facebook</span></button> -->
+      </div>
+    </form>
+  </div>
+</div>

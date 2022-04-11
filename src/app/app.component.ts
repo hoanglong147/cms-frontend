@@ -1,33 +1,20 @@
 import { Component } from '@angular/core';
-import { LoginService } from './login/login.service';
-import { SidebarService } from './sidebar/sidebar.service';
+import { SubjectService } from './services/subject.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
 
-  // loggedIn = false;
-  loggedIn= true;
-  sidebarCollapsed: boolean = false;//đánh dấu ẩn hiện side bar
-  constructor(private loginService: LoginService,
-     private sidebarService: SidebarService
-    ) { }
-
-  ngOnInit() {
-
-    this.sidebarService.sidebarCollapsed.subscribe((isCollapsed) => {
-      this.sidebarCollapsed = isCollapsed;
-    });
-    this.loginService.autoLogin();
-
-    this.loginService.user.subscribe(user => {
-      if (user) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
-    });
+export class AppComponent{
+  fullLoading:boolean = false;
+  constructor(private subjectService:SubjectService){}
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.subjectService.fullLoading.subscribe((res:boolean) => {
+      this.fullLoading = res;
+    })
   }
 }

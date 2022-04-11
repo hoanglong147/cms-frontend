@@ -1,144 +1,89 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { SidebarService } from './sidebar.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, ParamMap, Router } from '@angular/router';
+import { STORAGE_KEY } from 'app/constant/constant';
+import { ParamsProviderService } from 'app/services/params-provider.service';
+import { SubjectService } from 'app/services/subject.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
+
+export interface RouteInfo {
+    path: string;
+    title: string;
+    icon: string;
+    class: string;
+    id?: number
+}
+
+export const ROUTES: RouteInfo[] = [
+    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
+    { path: '/note', title: 'Note', icon: 'nc-book-bookmark', class: '' },
+    { path: '/profile', title: 'User Profile', icon: 'nc-single-02', class: '' },
+    { path: '/settings', title: 'Settings', icon: 'nc-settings-gear-65', class: '' },
+    { path: '/user/dummy/1', title: 'dummy', icon: 'nc-circle-10', class: 'profile', id: 1 },
+    // { path: '/icons', title: 'Icons', icon: 'nc-diamond', class: '' },
+    // { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '' },
+    // { path: '/notifications', title: 'Notifications', icon: 'nc-bell-55', class: '' },
+    // { path: '/table', title: 'Table List', icon: 'nc-tile-56', class: '' },
+    // { path: '/typography', title: 'Typography', icon: 'nc-caps-small', class: '' },
+    // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'nc-spaceship', class: 'active-pro' },
+];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+    moduleId: module.id,
+    selector: 'sidebar-cmp',
+    templateUrl: 'sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
 
-  sidebarCollapsed: boolean = false;//đánh dấu ẩn hiện side bar
-  /**trạng thái selected của các phần tử sidebar. true là selected*/
-  sidebarState: {} = {
-    'dashboard': false,
-    'project': true,// /project
-    'roles': false,
-    'users': false,
-    'settings': false,
-    'overview': false,
-    'dataset': false,// /project/:prj_id/dataset
-    'item-rule-set': false,// /project/:prj_id/itemRule
-    'raw-data': false,
-    'feature-set': false,// /project/:prj_id/feature
-    'model': false,// /project/:prj_id/model
-    'evaluation': false,// /project/:prj_id/evaluation
-    'deploy': false
-  };
+export class SidebarComponent implements OnInit, OnDestroy {
+    public menuItems = ROUTES.filter(menuItem => menuItem);
+    userInfo: any;
+    unSubscription: Subscription;
+    constructor(
+        private router: Router,
+        private activeRoute: ActivatedRoute,
+        private subjectService: SubjectService,
+        private cookieService: CookieService,
+        private ppService: ParamsProviderService
+    ) {
+        this.unSubscription = new Subscription();
+        const params = this.ppService.getParamsRouter().subscribe((res: NavigationEnd) => {
+            const { url } = res;
+            if (url.indexOf('user') > -1) {
+                const [id, name, ...left] = url.split('/').reverse();
+                let $index = -1;
+                this.menuItems.forEach((x: RouteInfo, index) => {
+                    if (x.id) {
+                        x.path = `/user/${name}/${id}`;
+                        x.title = name;
+                        $index = index;
+                    }
+                });
+                if ($index > -1) {
+                    const item = { ...this.menuItems[$index] };
+                    this.menuItems.splice($index, 1, item);
+                }
+            }
+        });
+        this.unSubscription.add(params);
+    }
+    ngOnInit(): void {
+        //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+        //Add 'implements OnInit' to the class.
+        const info = this.subjectService.userInfo.subscribe((res: any) => {
+            this.userInfo = res;
+            if (!this.userInfo && this.cookieService.get(STORAGE_KEY.USER_INFO)) {
+                this.userInfo = JSON.parse(this.cookieService.get(STORAGE_KEY.USER_INFO));
+            }
+        });
 
-  menuSystemCollapsed: boolean = false;//thuộc danh sách trước khi chọn project
-  menuDataCollapsed: boolean = false;//thuộc danh sách sau khi chọn project
-
-  projectId: string;//nếu là các trang khi chưa chọn project thì giá trị null. Nếu là trang sau khi chọn project thì giá trị là prj_id ở url
-
-  isMenuProject = true;//menu có 2 danh sách. Danh sách trước khi chọn project (mặc định sau khi đăng nhập) và danh sách sau khi chọn project
-
-  constructor(
-    private sidebarService: SidebarService
-    , private route: ActivatedRoute
-    , private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.sidebarService.sidebarCollapsed.subscribe((isCollapsed) => {
-      this.sidebarCollapsed = isCollapsed;
-    });
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationStart))
-      .subscribe((event: NavigationStart) => {
-        // console.log(event);
-        if (event.url === '/') {//trang mặc định thì chưa xác định thao tác
-          return;
-        }
-
-        if (event.url === '/login') {//trang đăng nhập không có side bar
-          this.projectId = null;
-          return;
-        }
-
-        //thay đổi danh sách sidebar dựa vào url
-        if (event.url === '/dashboard'
-          || event.url === '/project'
-          || event.url === '/role'
-          || event.url === '/user'
-          || event.url === '/setting'
-        ) {
-         
-          this.projectId = null;
-        } else {
-          
-          // this.projectId = event.url.match(/\/project\/(?<prj_id>[\w\d]+).*/).groups['prj_id'];
-        }
-
-        this.setSidebarState(event.url, this.sidebarState);
-      });
-  }
-
-  /** đặt lại giá trị khởi tạo */
-  resetSidebarState() {
-    for (const [key, value] of Object.entries(this.sidebarState)) {
-      this.sidebarState[key] = false;
+        this.unSubscription.add(info);
     }
-  }
-
-  /**
-   * Thay đổi trạng thái selected item trong sidebar dựa vào url.
-   * @param url đường dẫn url
-   * @param sidebarState lưu thông tin sidebar state
-   */
-  setSidebarState(url: string, sidebarState: {}) {
-    this.resetSidebarState();
-
-    if (url === '/dashboard') {
-      sidebarState['dashboard'] = true;
-      return;
+    ngOnDestroy(): void {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
+        this.unSubscription.unsubscribe();
     }
-    if (url === '/project') {
-      sidebarState['project'] = true;
-      return;
-    }
-    if (url === '/user') {
-      sidebarState['users'] = true;
-      return;
-    }
-    if (url === '/role') {
-      sidebarState['roles'] = true;
-      return;
-    }
-    if (url === '/setting') {
-      sidebarState['settings'] = true;
-      return;
-    }
-
-    if (/\/project\/[\w\d]+\/overview.*/.test(url)) {
-      sidebarState['overview'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/dataset.*/.test(url)) {
-      sidebarState['dataset'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/item-rule-set.*/.test(url)) {
-      sidebarState['item-rule-set'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/feature-set.*/.test(url)) {
-      sidebarState['feature-set'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/model.*/.test(url)) {
-      sidebarState['model'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/evaluation.*/.test(url)) {
-      sidebarState['evaluation'] = true;
-      return;
-    }
-    if (/\/project\/[\w\d]+\/deploy.*/.test(url)) {
-      sidebarState['deploy'] = true;
-      return;
-    }
-  }
 }

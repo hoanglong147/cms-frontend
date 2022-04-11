@@ -1,16 +1,9 @@
-<!-- trường hợp trang đăng nhập -->
-
-<router-outlet *ngIf="!loggedIn"></router-outlet>
-
-<!-- trường hợp khác -->
-<div id="wrapper" class="d-flex" *ngIf="loggedIn">
-    <app-sidebar [class.app-sidebar-collapsed]="sidebarCollapsed" class="app-sidebar"></app-sidebar>
-    
-    <!-- Page Content -->
-    <div [class.app-collapsed]="sidebarCollapsed" class="app">
-        <div></div>
-        <router-outlet></router-outlet>
+<router-outlet></router-outlet>
+<div class="spinner-wrap" *ngIf="fullLoading">
+    <div class="spinner-icon">
+        <div class="lds-ripple">
+            <div></div><img src="assets/img/angular.png" alt="avatar">
+            <div></div>
+        </div>
     </div>
-    <!-- /Page Content -->
 </div>
-<!-- /#wrapper -->

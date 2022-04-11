@@ -1,41 +1,22 @@
-<div [class.sidebar-collapsed]="sidebarCollapsed" class="bg-sidebar border-right" id="sidebar-wrapper">
-    <div class="bg-sidebar list-group list-group-flush">
-        <div *ngIf="isMenuProject">
-            <a href="/manage" [ngClass]="{'menu-item-selected': sidebarState['project']}"
-                class="bg-sidebar menu-item menu-item-selected list-group-item list-group-item-action">
-                <img class="pr-3 icon-sm icon-white" src="./assets/icon/outlined/application/appstore.svg" alt="">
-                <span>Manage Department</span>
-            </a>
 
-            <a class="bg-sidebar menu-item list-group-item list-group-item-action" (click)="collapseSystem.toggle()">
-                <div class="d-flex">
-                    <div class="mr-auto">
-                        <img class="pr-3 icon-sm icon-muted" src="./assets/icon/outlined/application/setting.svg" alt="">
-                        <span>System</span>
-                    </div>
-                    <div>
-                        <img *ngIf="!menuSystemCollapsed" class="pr-1 icon-xs icon-muted" src="./assets/icon/outlined/directional/up.svg" alt="">
-                        <img *ngIf="menuSystemCollapsed" class="pr-1 icon-xs icon-muted" src="./assets/icon/outlined/directional/down.svg" alt="">
-                    </div>
-                </div>
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a [routerLink]="['/dashboard']" class="simple-text logo-mini">
+      <div class="logo-image-small">
+        <img src="assets/img/angular2-logo.png" *ngIf="!userInfo?.avatar">
+        <img [src]="userInfo?.avatar" *ngIf="userInfo?.avatar">
+      </div>
+    </a>
+    <a [routerLink]="['/dashboard']" class="simple-text logo-normal">
+      {{userInfo?.name}}
+    </a>
+  </div>
+    <ul class="nav">
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+            <a [routerLink]="[menuItem.path]">
+                <i class="nc-icon {{menuItem.icon}}"></i>
+                <p>{{menuItem.title}}</p>
             </a>
-            <div #collapseSystem="ngbCollapse" [(ngbCollapse)]="menuSystemCollapsed">
-                <a href="/role" [ngClass]="{'menu-item-selected': sidebarState['roles']}"
-                    class="bg-sidebar menu-item sub-menu-item list-group-item list-group-item-action">
-                    <img class="pr-3 icon-sm icon-muted" src="./assets/icon/outlined/application/appstore.svg" alt="">
-                    <span>Roles</span>
-                </a>
-                <a href="/user" [ngClass]="{'menu-item-selected': sidebarState['users']}"
-                    class="bg-sidebar menu-item sub-menu-item list-group-item list-group-item-action">
-                    <img class="pr-3 icon-sm icon-muted" src="./assets/icon/outlined/application/user.svg" alt="">
-                    <span>Users</span>
-                </a>
-                <a href="/setting" [ngClass]="{'menu-item-selected': sidebarState['settings']}"
-                    class="bg-sidebar menu-item sub-menu-item list-group-item list-group-item-action">
-                    <img class="pr-3 icon-sm icon-muted" src="./assets/icon/outlined/application/setting.svg" alt="">
-                    <span>Settings</span>
-                </a>
-            </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
