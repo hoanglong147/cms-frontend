@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICategoryResponse, IDepartmentResponse, IIdeaResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
+import { ICategoryResponse, IDepartmentResponse, IIdeaResponse, IStaffResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -115,6 +115,30 @@ export class ApiService {
   getIdeas(params: any) {
     const url = `${environment.apiUrl}ideas`;
     return this.httpClient.get<ServerResponse<ServerPaginationResponse<IIdeaResponse>>>(url, { params });
+  }
+  updateSession(params: any, id: number) {
+    const url = `${environment.apiUrl}departments`;
+    return this.httpClient.post<ServerResponse<any>>(url, params);
+  }
+  createSession(params: any) {
+    const url = `${environment.apiUrl}`;
+    return this.httpClient.put<ServerResponse<any>>(url, params);
+  }
+  createStaff(params: any) {
+    const url = `${environment.apiUrl}staff`;
+    return this.httpClient.post<ServerResponse<IStaffResponse>>(url, params);
+  }
+  updateStaff(params: any, id: number) {
+    const url = `${environment.apiUrl}staff/${id}`;
+    return this.httpClient.put<ServerResponse<IStaffResponse>>(url, params);
+  }
+  deleteStaff(id: number) {
+    const url = `${environment.apiUrl}staff/${id}`;
+    return this.httpClient.delete<ServerResponse<boolean>>(url);
+  }
+  getAllStaff() {
+    const url = `${environment.apiUrl}staff`;
+    return this.httpClient.get<ServerResponse<IStaffResponse[]>>(url);
   }
 }
 

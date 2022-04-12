@@ -48,3 +48,13 @@ export interface IIdeaResponse {
   name: string;
 }
 
+export interface IStaffResponse {
+  staffId: number;
+  position: string;
+  userId: number;
+  name: string;
+  address: string;
+  role: number;
+  email: string;
+  username: string;
+}

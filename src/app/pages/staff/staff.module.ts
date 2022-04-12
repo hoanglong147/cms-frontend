@@ -4,12 +4,14 @@ import { StaffComponent } from './staff.component';
 import { ComponentsModule } from 'app/components/components.module';
 import { SharedModule } from 'app/shared/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { AddEditStaffComponent } from './components/add-edit-staff/add-edit-staff.component';
 
 
 
 @NgModule({
   declarations: [
-    StaffComponent
+    StaffComponent,
+    AddEditStaffComponent
   ],
   imports: [
     CommonModule,

@@ -9,13 +9,13 @@
       <label for="exampleFormControlInput1" class="form-label">Title</label>
       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Put your title here"
         formControlName="name">
-      <span class="text-error"
+      <span class="text-danger"
         *ngIf="(form.controls.name.dirty || form.controls.name.touched) && form.controls.name.errors">Name
         required</span>
     </div>
     <textarea class="card-text w-100 content-idea" rows="5" placeholder="Describe Your Idea here"
       formControlName="description">
-      <span class="text-error" *ngIf="(form.controls.description.dirty || form.controls.description.touched) && form.controls.description.errors">Description required</span>
+      <span class="text-danger" *ngIf="(form.controls.description.dirty || form.controls.description.touched) && form.controls.description.errors">Description required</span>
     </textarea>
     <div class="d-flex align-items-center">
       <label class="btn-upload pointer" for="uploadFile">

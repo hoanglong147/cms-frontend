@@ -15,6 +15,14 @@ export class IdeasService {
     return this.apiService.getSession(params);
   }
 
+  createSession(params: {}) {
+    return this.apiService.createSession(params);
+  }
+
+  updateSession(params: {}, id: number) {
+    return this.apiService.updateSession(params, id);
+  }
+
   createIdea(params: FormData) {
     return this.apiService.createIdea(params);
   }
