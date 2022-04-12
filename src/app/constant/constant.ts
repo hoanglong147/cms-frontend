@@ -51,3 +51,5 @@ export enum LikeStatus {
 }
 
 export const PAGE_SIZE = 20;
+export const DEFAULT_SIZE_IMAGE = 5000000;
+export const DEFAULT_SIZE_VIDEO = 20000000;

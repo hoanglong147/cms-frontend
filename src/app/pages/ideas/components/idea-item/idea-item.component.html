@@ -1,1 +1,13 @@
-<p>idea-item works!</p>
+<div class="card w-100" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">{{idea.description}}</p>
+    <span class="card-link text-primary">
+      <svg-icon src="./assets/img/comment.svg" class="icon"></svg-icon> {{idea.totalComment}}
+    </span>
+    <span class="card-link text-primary">
+      <svg-icon src="./assets/img/heart.svg" class="icon"></svg-icon> {{idea.totalLike}}
+    </span>
+  </div>
+</div>

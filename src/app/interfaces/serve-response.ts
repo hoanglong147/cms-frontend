@@ -34,3 +34,15 @@ export interface ICategoryResponse {
   active: boolean;
   id: number;
 }
+
+export interface IIdeaResponse {
+  ideaId: number;
+  timeUp: string;
+  description: string;
+  staffId: number;
+  departmentId: number;
+  totalLike: number;
+  totalComment: number;
+  status: number;
+}
+

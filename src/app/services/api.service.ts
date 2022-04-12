@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICategoryResponse, IDepartmentResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
+import { ICategoryResponse, IDepartmentResponse, IIdeaResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -107,6 +107,14 @@ export class ApiService {
   deleteCategory(id: number) {
     const url = `${environment.apiUrl}category/${id}`;
     return this.httpClient.delete<ServerResponse<boolean>>(url);
+  }
+  createIdea(params: FormData) {
+    const url = `${environment.apiUrl}ideas/upload`;
+    return this.httpClient.post(url, params);
+  }
+  getIdeas(params: any) {
+    const url = `${environment.apiUrl}ideas`;
+    return this.httpClient.get<ServerResponse<ServerPaginationResponse<IIdeaResponse>>>(url, { params });
   }
 }
 

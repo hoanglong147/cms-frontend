@@ -1,0 +1,30 @@
+@import '../../../../../assets/scss/paper-dashboard/variables';
+.btn-upload {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  color: $primary-color;
+  min-width: 150px;
+}
+.content-idea {
+  border-radius: 8px;
+  border-color: $new-blue;
+  outline: none;
+  padding: 8px;
+}
+.tags-idea {
+  border-color: $new-blue;
+  border-radius: 16px;
+  padding: 4px 16px;
+}
+.datePicker {
+  input {
+    border-color: $new-blue;
+  }
+}
+.btn-submit {
+  margin: 0;
+  padding: 8px;
+  margin-bottom: 8px;
+}

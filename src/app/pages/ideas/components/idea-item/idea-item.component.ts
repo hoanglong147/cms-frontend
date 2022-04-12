@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IIdeaResponse } from 'app/interfaces/serve-response';
 
 @Component({
   selector: 'spending-idea-item',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./idea-item.component.scss']
 })
 export class IdeaItemComponent implements OnInit {
-
+  @Input() idea: IIdeaResponse = {} as IIdeaResponse;
   constructor() { }
 
   ngOnInit(): void {

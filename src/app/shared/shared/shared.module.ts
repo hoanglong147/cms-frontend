@@ -12,8 +12,9 @@ import { PipesModule } from 'app/pipes/pipes.module';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { far, faCircle, faEdit, faEye, faSmile, faFrown, faCreditCard, faClock, faEnvelope, faTimesCircle, faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
-import { fas, faPlus, faCoffee, faPen, faTrash, faTimes, faMapMarkedAlt, faCity, faGlobeAsia, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
+import { fas, faPlus, faCoffee, faPen, faTrash, faTimes, faMapMarkedAlt, faCity, faGlobeAsia, faCameraRetro, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 
 
@@ -31,7 +32,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PipesModule,
     NgSelectModule,
     FontAwesomeModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AngularSvgIconModule.forRoot()
   ],
   exports: [
     FormsModule,
@@ -45,7 +47,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PipesModule,
     NgSelectModule,
     FontAwesomeModule,
-    ModalModule
+    ModalModule,
+    AngularSvgIconModule
   ]
 })
 export class SharedModule {
@@ -53,7 +56,7 @@ export class SharedModule {
     this.library.addIconPacks(fas, far);
     this.library.addIcons(faPlus, faCoffee, faCircle, faPen, faTrash,
       faEdit, faEye, faTimes, faSmile, faFrown, faCreditCard, faClock,
-      faMapMarkedAlt, faCity, faGlobeAsia, faEnvelope, faCameraRetro);
+      faMapMarkedAlt, faCity, faGlobeAsia, faEnvelope, faCameraRetro, faPaperclip);
     this.library.addIcons(faTimesCircle, faCalendarPlus)
   }
 }

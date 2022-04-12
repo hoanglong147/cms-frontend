@@ -14,4 +14,12 @@ export class IdeasService {
   getSession(params: { key: string, page: number, size: number } = { key: '', page: 0, size: PAGE_SIZE }) {
     return this.apiService.getSession(params);
   }
+
+  createIdea(params: FormData) {
+    return this.apiService.createIdea(params);
+  }
+
+  getIdeasBySession(params: { departmentId: number, page: number, size: number }) {
+    return this.apiService.getIdeas(params);
+  }
 }

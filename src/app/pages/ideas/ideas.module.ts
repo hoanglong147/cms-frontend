@@ -9,6 +9,7 @@ import { SessionItemComponent } from './components/session-item/session-item.com
 import { LayoutIdeasComponent } from './components/layout-ideas/layout-ideas.component';
 import { IdeaItemComponent } from './components/idea-item/idea-item.component';
 import { IdeaDetailComponent } from './components/idea-detail/idea-detail.component';
+import { CreateIdeaComponent } from './components/create-idea/create-idea.component';
 
 
 
@@ -19,7 +20,8 @@ import { IdeaDetailComponent } from './components/idea-detail/idea-detail.compon
     SessionItemComponent,
     LayoutIdeasComponent,
     IdeaItemComponent,
-    IdeaDetailComponent
+    IdeaDetailComponent,
+    CreateIdeaComponent
   ],
   imports: [
     CommonModule,

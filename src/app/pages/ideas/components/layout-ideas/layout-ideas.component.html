@@ -1,1 +1,10 @@
-<p>layout-ideas works!</p>
+<div class="row">
+  <div class="col-8">
+    <spending-idea-item *ngFor="let item of ideas" [idea]="item"></spending-idea-item>
+  </div>
+  <div class="col-3 position-fixed end-0">
+    <div class="card w-100" style="width: 18rem;">
+      <spending-create-idea></spending-create-idea>
+    </div>
+  </div>
+</div>
