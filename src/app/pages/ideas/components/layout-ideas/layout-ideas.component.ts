@@ -13,7 +13,8 @@ export class LayoutIdeasComponent implements OnInit {
   params = {
     departmentId: -1,
     page: 0,
-    size: PAGE_SIZE
+    size: PAGE_SIZE,
+    sortBy: 'LIKE'
   }
   ideas: IIdeaResponse[] = [];
   total = 0;
@@ -38,9 +39,18 @@ export class LayoutIdeasComponent implements OnInit {
       if (res.code === STATUS_CODE.SUCCESS) {
         const { items, total } = res.data;
         this.ideas.push(...items);
-        this.total = total
+        this.total = total;
       }
     })
   }
-
+  onSortChange($event: 'LIKE' | 'COMMENT') {
+    this.params.sortBy = $event;
+    this.params.page = 0;
+    this.ideas = [];
+    this.getListIdeas();
+  }
+  onCreateIdea($event: IIdeaResponse) {
+    this.ideas.unshift($event);
+    this.total += 1;
+  }
 }

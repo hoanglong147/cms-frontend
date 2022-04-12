@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IIdeaResponse } from 'app/interfaces/serve-response';
 
 @Component({
@@ -8,7 +9,15 @@ import { IIdeaResponse } from 'app/interfaces/serve-response';
 })
 export class IdeaItemComponent implements OnInit {
   @Input() idea: IIdeaResponse = {} as IIdeaResponse;
-  constructor() { }
+  sessionId = -1;
+  constructor(
+    private activeRoute: ActivatedRoute,
+  ) {
+    const params = this.activeRoute.snapshot.params;
+    if (params['sessionId']) {
+      this.sessionId = params['sessionId'];
+    }
+  }
 
   ngOnInit(): void {
   }

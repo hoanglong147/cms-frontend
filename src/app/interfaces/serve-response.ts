@@ -16,7 +16,8 @@ export interface IUserAuthResponse {
   token: string;
   username: string;
   email: string;
-  roles: ROLE
+  roles: ROLE;
+  userId: number;
 }
 
 export interface IDepartmentResponse {
@@ -44,5 +45,6 @@ export interface IIdeaResponse {
   totalLike: number;
   totalComment: number;
   status: number;
+  name: string;
 }
 

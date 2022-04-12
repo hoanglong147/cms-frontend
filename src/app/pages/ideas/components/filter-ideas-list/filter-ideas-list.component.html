@@ -1,0 +1,11 @@
+<div class="card w-100 pointer" style="width: 18rem;">
+  <div class="card-body">
+    <!-- <h5 class="card-title">Card title</h5> -->
+    <label for="exampleFormControlInput1" class="form-label">Sort By</label>
+    <select class="form-select form-select-sm tags-idea" aria-label=".form-select-sm example"
+      id="exampleFormControlInput1" [(ngModel)]="sortValue" (ngModelChange)="onSortChange.emit($event)">
+      <option value="LIKE" selected>Like</option>
+      <option value="COMMENT">Comment</option>
+    </select>
+  </div>
+</div>

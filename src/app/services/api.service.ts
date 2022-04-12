@@ -110,7 +110,7 @@ export class ApiService {
   }
   createIdea(params: FormData) {
     const url = `${environment.apiUrl}ideas/upload`;
-    return this.httpClient.post(url, params);
+    return this.httpClient.post<ServerResponse<IIdeaResponse>>(url, params);
   }
   getIdeas(params: any) {
     const url = `${environment.apiUrl}ideas`;

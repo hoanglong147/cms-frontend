@@ -19,7 +19,11 @@ export class IdeasService {
     return this.apiService.createIdea(params);
   }
 
-  getIdeasBySession(params: { departmentId: number, page: number, size: number }) {
+  getIdeasBySession(params: { departmentId: number, page: number, size: number, sortBy: string }) {
     return this.apiService.getIdeas(params);
+  }
+
+  getDetailIdea(id: number) {
+    return null;
   }
 }

@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { DirectivesModule } from 'app/directives/directives.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { PipesModule } from 'app/pipes/pipes.module';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCalendarPlus, faCircle, faClock, faCreditCard, faEdit, faEnvelope, faEye, faFrown, far, faSmile, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCameraRetro, faCity, faCoffee, faGlobeAsia, faMapMarkedAlt, faPaperclip, faPen, faPlus, fas, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { far, faCircle, faEdit, faEye, faSmile, faFrown, faCreditCard, faClock, faEnvelope, faTimesCircle, faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
-import { fas, faPlus, faCoffee, faPen, faTrash, faTimes, faMapMarkedAlt, faCity, faGlobeAsia, faCameraRetro, faPaperclip } from '@fortawesome/free-solid-svg-icons';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { DirectivesModule } from 'app/directives/directives.module';
+import { PipesModule } from 'app/pipes/pipes.module';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -28,7 +26,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     CollapseModule,
     ColorPickerModule,
     DirectivesModule,
-    BsDropdownModule,
+    BsDropdownModule.forRoot(),
     PipesModule,
     NgSelectModule,
     FontAwesomeModule,

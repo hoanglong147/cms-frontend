@@ -52,5 +52,6 @@ export interface IUser {
     username: string;
     email: string;
     roles: ROLE;
+    userId: number;
 }
 

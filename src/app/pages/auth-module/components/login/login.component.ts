@@ -105,11 +105,12 @@ export class LoginComponent implements OnInit {
     });
   }
   success(res: IUserAuthResponse) {
-    const { token, username, email, roles } = res;
+    const { token, username, email, roles, userId } = res;
     const data = {
       username,
       email,
-      roles
+      roles,
+      userId
     };
     localStorage.setItem(STORAGE_KEY.USER_DATA, JSON.stringify({
       token: token,

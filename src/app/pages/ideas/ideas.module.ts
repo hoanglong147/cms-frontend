@@ -10,6 +10,7 @@ import { LayoutIdeasComponent } from './components/layout-ideas/layout-ideas.com
 import { IdeaItemComponent } from './components/idea-item/idea-item.component';
 import { IdeaDetailComponent } from './components/idea-detail/idea-detail.component';
 import { CreateIdeaComponent } from './components/create-idea/create-idea.component';
+import { FilterIdeasListComponent } from './components/filter-ideas-list/filter-ideas-list.component';
 
 
 
@@ -21,7 +22,8 @@ import { CreateIdeaComponent } from './components/create-idea/create-idea.compon
     LayoutIdeasComponent,
     IdeaItemComponent,
     IdeaDetailComponent,
-    CreateIdeaComponent
+    CreateIdeaComponent,
+    FilterIdeasListComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { CreateIdeaComponent } from './components/create-idea/create-idea.compon
         path: '', component: IdeasComponent, children: [
           { path: '', component: LayoutSessionComponent },
           { path: ':sessionId', component: LayoutIdeasComponent },
-          { path: ':sessionId/ideas/:id', component: IdeaDetailComponent },
+          { path: ':sessionId/detail/:id', component: IdeaDetailComponent },
         ]
       }
     ])
