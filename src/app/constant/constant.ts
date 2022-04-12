@@ -1,9 +1,10 @@
+const PREFIX = 'cms_';
 export const STORAGE_KEY = {
-  ACCESS_TOKEN: 'jwt_access_token',
-  USER_INFO: 'user_info',
-  SOLD_OUT_RECORD: 'sold_out',
-  LANGUAGE: 'lang',
-  USER_DATA: 'user_data',
+  ACCESS_TOKEN: PREFIX + 'jwt_access_token',
+  USER_INFO: PREFIX + 'user_info',
+  SOLD_OUT_RECORD: PREFIX + 'sold_out',
+  LANGUAGE: PREFIX + 'lang',
+  USER_DATA: PREFIX + 'user_data',
   CALLWINDOW: 'call_window',
   CURRENT_TIP_ID: 'current_tip_id',
   SIDE_BAR_STYLE: 'side_bar_style'
