@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left m-0">Category</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close(null)">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Name Category</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name Category"
+        formControlName="name">
+      <span class="text-error"
+        *ngIf="(form.controls.name.dirty || form.controls.name.touched) && form.controls.name.errors">Name is
+        required</span>
+    </div>
+    <div class="mb-3 form-check d-flex align-items-center">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="active">
+      <label class="form-check-label" for="exampleCheck1">Active/Deactivate</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
