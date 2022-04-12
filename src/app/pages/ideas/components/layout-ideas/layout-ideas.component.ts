@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
+import { PAGE_SIZE, ROLE, STATUS_CODE } from 'app/constant/constant';
+import { IUser } from 'app/interfaces/model';
 import { IIdeaResponse } from 'app/interfaces/serve-response';
+import { SubjectService } from 'app/services/subject.service';
+import { Observable } from 'rxjs';
 import { IdeasService } from '../../services/ideas.service';
 
 @Component({
@@ -18,9 +21,12 @@ export class LayoutIdeasComponent implements OnInit {
   }
   ideas: IIdeaResponse[] = [];
   total = 0;
+  userInfo$: Observable<IUser>;
+  readonly ROLE = ROLE;
   constructor(
     private activeRoute: ActivatedRoute,
-    private ideaService: IdeasService
+    private ideaService: IdeasService,
+    private subjectService: SubjectService
   ) {
     const params = this.activeRoute.snapshot.params;
     if (params['sessionId']) {
@@ -31,6 +37,7 @@ export class LayoutIdeasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userInfo$ = this.subjectService.userInfo.asObservable();
   }
 
   getListIdeas() {

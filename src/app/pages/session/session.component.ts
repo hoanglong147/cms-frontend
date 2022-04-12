@@ -32,5 +32,8 @@ export class SessionComponent implements OnInit {
       console.log('sessions', res);
     })
   }
+  openModalAddEdit(index: number = -1, category: IDepartmentResponse = {} as IDepartmentResponse) {
+
+  }
 
 }
