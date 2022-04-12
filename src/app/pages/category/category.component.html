@@ -1,6 +1,9 @@
 <div class="card">
-  <div class="card-header">
-    <h4 class="card-title"> Simple Table</h4>
+  <div class="card-header d-flex justify-content-between">
+    <h4 class="card-title"> Categories Management</h4>
+    <button class="btn btn-success" (click)="openModalAddEdit()">
+      <fa-icon [icon]="['fas','plus']"></fa-icon>
+    </button>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -18,12 +21,12 @@
           <th class="text-right">
             Create At
           </th>
-          <th>
+          <th class="text-center">
             Action
           </th>
         </thead>
         <tbody>
-          <tr *ngFor="let item of categories$ | async">
+          <tr *ngFor="let item of categories$ | async; let $index = index">
             <td>
               {{item.id}}
             </td>
@@ -34,10 +37,15 @@
               {{item.active}}
             </td>
             <td>
-              {{item.createdDate | date:'short'}}
+              {{item.createdDate | date:'medium'}}
             </td>
-            <td>
-
+            <td class="text-center">
+              <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)">
+                <fa-icon [icon]="['fas','edit']"></fa-icon>
+              </button>
+              <button class="btn btn-danger" (click)="deleteCategory(item.id,$index)">
+                <fa-icon [icon]="['fas','trash']"></fa-icon>
+              </button>
             </td>
           </tr>
         </tbody>

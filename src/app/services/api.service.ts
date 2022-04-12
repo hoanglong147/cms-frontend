@@ -96,5 +96,17 @@ export class ApiService {
     const url = `${environment.apiUrl}category`;
     return this.httpClient.get<ServerResponse<ICategoryResponse[]>>(url);
   }
+  createCategory(params: any) {
+    const url = `${environment.apiUrl}category`;
+    return this.httpClient.post<ServerResponse<ICategoryResponse>>(url, params);
+  }
+  updateCategory(params: any, id: number) {
+    const url = `${environment.apiUrl}category/${id}`;
+    return this.httpClient.put<ServerResponse<ICategoryResponse>>(url, params);
+  }
+  deleteCategory(id: number) {
+    const url = `${environment.apiUrl}category/${id}`;
+    return this.httpClient.delete<ServerResponse<boolean>>(url);
+  }
 }
 

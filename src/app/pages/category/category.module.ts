@@ -4,12 +4,14 @@ import { CategoryComponent } from './category.component';
 import { ComponentsModule } from 'app/components/components.module';
 import { SharedModule } from 'app/shared/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { AddEditCategoryComponent } from './components/add-edit-category/add-edit-category.component';
 
 
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    CategoryComponent,
+    AddEditCategoryComponent
   ],
   imports: [
     CommonModule,

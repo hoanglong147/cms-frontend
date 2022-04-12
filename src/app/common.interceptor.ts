@@ -47,7 +47,7 @@ export class CommonInterceptor implements HttpInterceptor {
     }, (err: any) => {
       // this.logService.logAPIError(err, accessToken);
       console.log(err);
-      if (err.status == STATUS_CODE.SC_FORBIDDEN) {
+      if (err.status == STATUS_CODE.SC_FORBIDDEN || err.status === STATUS_CODE.ACCESS_DENIED) {
         this.authService.logout();
       }
       let error = 'Something woring!!!';

@@ -31,8 +31,6 @@ import { ComponentsModule } from 'app/components/components.module';
     CommonModule,
     RouterModule.forChild(AdminRoutes),
     SharedModule,
-    NgSelectModule,
-    FontAwesomeModule,
     FixedPluginModule,
     ComponentsModule
   ],
@@ -53,11 +51,7 @@ import { ComponentsModule } from 'app/components/components.module';
 })
 
 export class AdminModule {
-  constructor(private library: FaIconLibrary) {
-    this.library.addIconPacks(fas, far);
-    this.library.addIcons(faPlus, faCoffee, faCircle, faPen, faTrash,
-      faEdit, faEye, faTimes, faSmile, faFrown, faCreditCard, faClock,
-      faMapMarkedAlt, faCity, faGlobeAsia, faEnvelope, faCameraRetro);
-    this.library.addIcons(faTimesCircle, faCalendarPlus)
+  constructor() {
+
   }
 }
