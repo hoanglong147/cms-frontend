@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PAGE_SIZE } from 'app/constant/constant';
+import { ISessionRequest } from 'app/interfaces/serve-request';
 import { ApiService } from 'app/services/api.service';
 
 @Injectable({
@@ -15,11 +16,11 @@ export class IdeasService {
     return this.apiService.getSession(params);
   }
 
-  createSession(params: {}) {
+  createSession(params: ISessionRequest) {
     return this.apiService.createSession(params);
   }
 
-  updateSession(params: {}, id: number) {
+  updateSession(params: ISessionRequest, id: number) {
     return this.apiService.updateSession(params, id);
   }
 

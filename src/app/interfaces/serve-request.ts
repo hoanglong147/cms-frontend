@@ -7,3 +7,11 @@ export interface IStaffRequest {
   address: string;
   role: number;
 }
+
+export interface ISessionRequest {
+  name: string;
+  startDate: string;
+  closureDateIdea: string;
+  closureDate: string;
+}
+

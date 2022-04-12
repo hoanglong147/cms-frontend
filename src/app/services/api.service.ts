@@ -117,12 +117,12 @@ export class ApiService {
     return this.httpClient.get<ServerResponse<ServerPaginationResponse<IIdeaResponse>>>(url, { params });
   }
   updateSession(params: any, id: number) {
-    const url = `${environment.apiUrl}departments`;
-    return this.httpClient.post<ServerResponse<any>>(url, params);
+    const url = `${environment.apiUrl}departments/${id}`;
+    return this.httpClient.put<ServerResponse<IDepartmentResponse>>(url, params);
   }
   createSession(params: any) {
-    const url = `${environment.apiUrl}`;
-    return this.httpClient.put<ServerResponse<any>>(url, params);
+    const url = `${environment.apiUrl}departments`;
+    return this.httpClient.post<ServerResponse<IDepartmentResponse>>(url, params);
   }
   createStaff(params: any) {
     const url = `${environment.apiUrl}staff`;

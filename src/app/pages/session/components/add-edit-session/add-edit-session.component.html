@@ -7,11 +7,31 @@
 <div class="modal-body">
   <form [formGroup]="form" (submit)="onSubmit()">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Name Category</label>
+      <label for="exampleInputEmail1" class="form-label">Name Session</label>
       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name Category"
-        formControlName="name">
+        formControlName="name" placeholder="name here">
       <span class="text-danger"
         *ngIf="(form.controls.name.dirty || form.controls.name.touched) && form.controls.name.errors">Name is
+        required</span>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Expire Date</label>
+      <input type="text" placeholder="Expire Date" class="form-control"
+        [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+        bsDaterangepicker formControlName="dateRange" [minDate]="minDate">
+      <span class="text-danger"
+        *ngIf="(form.controls.dateRange.dirty || form.controls.dateRange.touched) && form.controls.dateRange.errors">Expire
+        Date is
+        required</span>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Closure date idea</label>
+      <input type="text" placeholder="closure date" class="form-control"
+        [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+        bsDatepicker formControlName="closureDateIdea" [minDate]="minDate">
+      <span class="text-danger"
+        *ngIf="(form.controls.closureDateIdea.dirty || form.controls.closureDateIdea.touched) && form.controls.closureDateIdea.errors">Closure
+        date is
         required</span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
