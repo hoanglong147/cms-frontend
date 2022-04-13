@@ -9,6 +9,7 @@ import { IIdeaResponse } from 'app/interfaces/serve-response';
 })
 export class IdeaItemComponent implements OnInit {
   @Input() idea: IIdeaResponse = {} as IIdeaResponse;
+  @Input() attachFile: string = '';
   sessionId = -1;
   constructor(
     private activeRoute: ActivatedRoute,

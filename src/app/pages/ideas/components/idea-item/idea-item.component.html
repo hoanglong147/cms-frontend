@@ -3,6 +3,9 @@
     <!-- <h5 class="card-title">Card title</h5> -->
     <h6 class="card-subtitle mb-2 text-muted">{{idea.name}}</h6>
     <p class="card-text">{{idea.description}}</p>
+    <div class="attach-file">
+      <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+    </div>
     <span class="card-link text-primary">
       <svg-icon src="./assets/img/comment.svg" class="icon"></svg-icon> {{idea.totalComment}}
     </span>
