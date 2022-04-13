@@ -44,10 +44,10 @@ export class IdeaItemComponent implements OnInit {
       this.idea.likeStatus = this.LIKE_STATUS.INACTIVE;
     }
     const { userId } = this.subjectService.userInfo.getValue();
-    // this.ideaService.likeIdea({
-    //   staffId: userId,
-    //   ideaId: this.idea.ideaId,
-    //   status: this.idea.likeStatus,
-    // }).subscribe(res => console.log(res));
+    this.ideaService.likeIdea({
+      staffId: userId,
+      ideaId: this.idea.ideaId,
+      status: this.idea.likeStatus,
+    }).subscribe(res => console.log(res));
   }
 }
