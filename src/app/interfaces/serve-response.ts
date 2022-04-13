@@ -1,4 +1,4 @@
-import { ROLE } from "app/constant/constant";
+import { LikeStatus, ROLE } from "app/constant/constant";
 
 export interface ServerResponse<T> {
   data: T;
@@ -47,6 +47,7 @@ export interface IIdeaResponse {
   status: number;
   name: string;
   url: string;
+  likeStatus: LikeStatus;
 }
 
 export interface IStaffResponse {
@@ -67,6 +68,8 @@ export interface IIdeaDetailResponse {
   totalComment: number;
   description: string;
   ideaName: string;
+  url: string;
+  likeStatus: LikeStatus;
 }
 
 export interface ICommentResponse {

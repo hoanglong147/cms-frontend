@@ -149,5 +149,9 @@ export class ApiService {
     const url = `${environment.apiUrl}comment`;
     return this.httpClient.post<ServerResponse<ICommentResponse>>(url, params);
   }
+  likeIdea(param) {
+    const url = `${environment.apiUrl}like/change-status`;
+    return this.httpClient.post(url, param);
+  }
 }
 

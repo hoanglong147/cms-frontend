@@ -22,6 +22,7 @@ export class IdeaDetailComponent implements OnInit {
   comments: string[] = [];
   totalComments = 0;
   commentText = '';
+  loading = false;
   constructor(
     private activeRoute: ActivatedRoute,
     private ideaService: IdeasService,
@@ -61,17 +62,20 @@ export class IdeaDetailComponent implements OnInit {
       return;
     }
     const { userId } = this.subjectService.userInfo.getValue();
+    this.loading = true;
     this.ideaService.postComment({
       anonymous: false,
       content: this.commentText,
       ideaId: this.ideaDetail.ideaId,
       staffId: userId
     }).subscribe(res => {
-      if (res.code === STATUS_CODE.SUCCESS) {
+      this.loading = false;
+      if (res.code === STATUS_CODE.CREATED) {
         this.comments.unshift(this.commentText);
         this.idea.totalComment += 1;
         this.commentText = '';
       }
-    })
+    }, err => this.loading = false);
+
   }
 }

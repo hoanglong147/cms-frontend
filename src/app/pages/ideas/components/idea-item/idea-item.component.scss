@@ -1,0 +1,15 @@
+@import '../../../../../assets/scss/paper-dashboard/variables';
+.attach-file {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  padding: 8px;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+.active {
+  svg-icon {
+    svg {
+      fill:red;
+    }
+  }
+}

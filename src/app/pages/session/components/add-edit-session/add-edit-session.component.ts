@@ -15,6 +15,7 @@ export class AddEditSessionComponent implements OnInit {
   data: IDepartmentResponse = {} as IDepartmentResponse;
   form: FormGroup;
   minDate = new Date();
+  loading = false;
   constructor(
     private ideaService: IdeasService,
     private fb: FormBuilder,
@@ -61,11 +62,14 @@ export class AddEditSessionComponent implements OnInit {
       closureDate: closureDate.toISOString(),
       closureDateIdea: closureDateIdea.toISOString()
     }
-
+    this.loading = true;
     const api = this.index !== -1
       ? this.ideaService.updateSession(params, this.data.id)
       : this.ideaService.createSession(params)
-    api.subscribe(res => this.close(res.data));
+    api.subscribe(res => {
+      this.close(res.data);
+      this.loading = false;
+    }, err => this.loading = false);
   }
 
   validateDate(startDate: Date, endDate: Date, closeDate: Date) {

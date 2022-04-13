@@ -14,6 +14,7 @@ export class AddEditStaffComponent implements OnInit {
   index: number = -1;
   data: IStaffResponse = {} as IStaffResponse;
   form: FormGroup;
+  loading = false;
   constructor(
     private staffService: StaffService,
     private fb: FormBuilder,
@@ -47,6 +48,7 @@ export class AddEditStaffComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    this.loading = true;
     const api = this.index !== -1
       ? this.staffService.updateStaff({
         ...this.form.value,
@@ -54,6 +56,9 @@ export class AddEditStaffComponent implements OnInit {
         username: this.data.username
       }, this.data.staffId)
       : this.staffService.createStaff(this.form.value)
-    api.subscribe(res => this.close(res.data));
+    api.subscribe(res => {
+      this.close(res.data);
+      this.loading = false;
+    }, err => this.loading = false);
   }
 }

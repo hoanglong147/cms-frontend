@@ -13,6 +13,7 @@ export class AddEditCategoryComponent implements OnInit {
   index: number = -1;
   data: ICategoryResponse = {} as ICategoryResponse;
   form: FormGroup;
+  loading = false;
   constructor(
     private categoryService: CategoryService,
     private fb: FormBuilder
@@ -30,10 +31,13 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.index)
+    this.loading = true;
     const api = this.index !== -1
       ? this.categoryService.updateCategory(this.form.value, this.index, this.data.id)
       : this.categoryService.createCategory(this.form.value)
-    api.subscribe(res => this.close(res));
+    api.subscribe(res => {
+      this.close(res);
+      this.loading = false;
+    }, err => this.loading = false);
   }
 }

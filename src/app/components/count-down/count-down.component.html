@@ -1,2 +1,6 @@
-<p><span *ngFor="let item of displayTime;let $index = index" class="text-danger fw-bold">{{item.value}} {{item.label}}
-    {{$index === displayTime.length -1 ? '' :':'}} </span></p>
+<p *ngIf="displayTime.length"><span *ngFor="let item of displayTime;let $index = index"
+        class="text-danger fw-bold">{{item.value}} {{item.label}}
+        {{$index === displayTime.length -1 ? '' :':'}} </span></p>
+<p class="text-danger" *ngIf="!displayTime.length">
+    Timeout
+</p>

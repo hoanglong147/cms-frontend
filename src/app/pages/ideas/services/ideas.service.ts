@@ -40,4 +40,8 @@ export class IdeasService {
   postComment(params: ICommentResponse) {
     return this.apiService.postComment(params);
   }
+
+  likeIdea(params: any) {
+    return this.apiService.likeIdea(params);
+  }
 }
