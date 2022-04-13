@@ -96,11 +96,11 @@ export class LoginComponent implements OnInit {
     this.apiService.register({
       username: usr,
       password: pwd
-    }).subscribe((res: any) => {
+    }).subscribe((res) => {
       this.helperService.hideFullLoading();
       this.loading = false;
       if (res['code'] == STATUS_CODE.CREATED) {
-        this.success(res);
+        this.success(res.data);
         this.helperService.showSuccess('', 'Register Success!!!');
       }
     }, (error) => {
