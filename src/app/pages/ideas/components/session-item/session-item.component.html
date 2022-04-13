@@ -1,7 +1,11 @@
 <div class="card pointer me-3" style="width: 18rem;">
   <div class="card-body" [routerLink]="['/ideas',session.id]">
     <h5 class="card-title">{{session.name}}</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+    <p class="card-subtitle mb-2 text-muted">Creator: {{session.qaName}}
     </p>
+    <p class="card-text">
+      Time post idea remaining:
+    </p>
+    <spending-count-down [endDate]="endDateIdea"></spending-count-down>
   </div>
 </div>

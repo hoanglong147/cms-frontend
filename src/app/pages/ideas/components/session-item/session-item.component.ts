@@ -8,9 +8,11 @@ import { IDepartmentResponse } from 'app/interfaces/serve-response';
 })
 export class SessionItemComponent implements OnInit {
   @Input() session: IDepartmentResponse = {} as IDepartmentResponse;
+  endDateIdea = new Date();
   constructor() { }
 
   ngOnInit(): void {
+    this.endDateIdea = new Date(this.session.closureDateIdea);
   }
 
 }

@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from 'app/shared/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { CountDownComponent } from './count-down/count-down.component';
 
 
 
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
   declarations: [
     SidebarComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    CountDownComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { RouterModule } from '@angular/router';
   exports: [
     SidebarComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    CountDownComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICategoryResponse, IDepartmentResponse, IIdeaResponse, IStaffResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
+import { ICategoryResponse, ICommentResponse, IDepartmentResponse, IIdeaDetailResponse, IIdeaResponse, IStaffResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -139,6 +139,15 @@ export class ApiService {
   getAllStaff() {
     const url = `${environment.apiUrl}staff`;
     return this.httpClient.get<ServerResponse<IStaffResponse[]>>(url);
+  }
+  getDetailIdea(params: { ideaId: number, page: number, size: number }) {
+    const url = `${environment.apiUrl}ideas/detail`;
+    return this.httpClient.get<ServerResponse<IIdeaDetailResponse>>(url, { params });
+  }
+
+  postComment(params: ICommentResponse) {
+    const url = `${environment.apiUrl}comment`;
+    return this.httpClient.post<ServerResponse<ICommentResponse>>(url, params);
   }
 }
 

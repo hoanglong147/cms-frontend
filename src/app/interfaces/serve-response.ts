@@ -46,6 +46,7 @@ export interface IIdeaResponse {
   totalComment: number;
   status: number;
   name: string;
+  url: string;
 }
 
 export interface IStaffResponse {
@@ -57,4 +58,20 @@ export interface IStaffResponse {
   role: number;
   email: string;
   username: string;
+}
+
+export interface IIdeaDetailResponse {
+  ideaId: number;
+  detailComment: { items: string[], total: number };
+  totalLike: number;
+  totalComment: number;
+  description: string;
+  ideaName: string;
+}
+
+export interface ICommentResponse {
+  content: string;
+  anonymous: boolean;
+  staffId: number;
+  ideaId: number;
 }
