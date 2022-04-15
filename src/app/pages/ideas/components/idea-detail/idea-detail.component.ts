@@ -24,6 +24,7 @@ export class IdeaDetailComponent implements OnInit {
   totalComments = 0;
   commentText = '';
   loading = false;
+  total = 0;
   constructor(
     private activeRoute: ActivatedRoute,
     private ideaService: IdeasService,
@@ -55,6 +56,15 @@ export class IdeaDetailComponent implements OnInit {
           ideaId: this.ideaDetail.ideaId
         };
         this.comments = this.ideaDetail.detailComment.items;
+        this.total = this.ideaDetail.detailComment.total;
+      }
+    })
+  }
+  getComment() {
+    this.ideaService.getDetailIdea(this.params).subscribe(res => {
+      if (res.code === STATUS_CODE.SUCCESS) {
+        this.comments = res.data.detailComment.items;
+        this.total = res.data.detailComment.total;
       }
     })
   }
@@ -79,5 +89,9 @@ export class IdeaDetailComponent implements OnInit {
       }
     }, err => this.loading = false);
 
+  }
+  loadMore() {
+    this.params.page += 1;
+    this.getComment();
   }
 }

@@ -19,7 +19,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
-    { path: '/ideas', title: 'Feeds ideas', icon: 'nc-book-bookmark', class: '', auth: [ROLE.ADMIN, ROLE.ADMIN, ROLE.STAFF] },
+    { path: '/ideas', title: 'Feeds ideas', icon: 'nc-book-bookmark', class: '', auth: [ROLE.ADMIN, ROLE.QA, ROLE.STAFF] },
     { path: '/session', title: 'Sessions', icon: 'nc-single-02', class: '', auth: [ROLE.QA] },
     { path: '/category', title: 'Category', icon: 'nc-settings-gear-65', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
     { path: '/staff', title: 'Staffs', icon: 'nc-circle-10', class: '', auth: [ROLE.ADMIN] },

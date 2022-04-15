@@ -63,6 +63,8 @@
           </tr>
         </tbody>
       </table>
+      <pagination [totalItems]="total" [itemsPerPage]="params.size" [maxSize]="5" [rotate]="true"
+        (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>

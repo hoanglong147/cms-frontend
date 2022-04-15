@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-8">
     <spending-idea-item *ngFor="let item of ideas" [idea]="item"></spending-idea-item>
+    <div class="w-50 d-flex justify-content-center" *ngIf="total !== 0 && ideas.length < total">
+      <button class="btn btn-primary" (click)="loadMore()">Load More</button>
+    </div>
   </div>
   <div class="col-3 position-fixed end-0">
     <div class="card w-100" style="width: 18rem;" *ngIf="(userInfo$ | async).roles === ROLE.STAFF && showPostIdea">

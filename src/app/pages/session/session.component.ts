@@ -5,6 +5,7 @@ import { HelperService } from 'app/services/helper.service';
 import { SubjectService } from 'app/services/subject.service';
 import { environment } from 'environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { IdeasService } from '../ideas/services/ideas.service';
 import { AddEditSessionComponent } from './components/add-edit-session/add-edit-session.component';
 
@@ -37,10 +38,9 @@ export class SessionComponent implements OnInit {
     this.ideaService.getSession(this.params).subscribe(res => {
       if (res.code === STATUS_CODE.SUCCESS) {
         const { items, total } = res.data;
-        this.sessions.push(...items);
+        this.sessions = items;
         this.total = total;
       }
-      console.log('sessions', res);
     })
   }
   openModalAddEdit(index: number = -1, session: IDepartmentResponse = {} as IDepartmentResponse) {
@@ -57,6 +57,7 @@ export class SessionComponent implements OnInit {
         index !== -1
           ? this.sessions.splice(index, 1, res)
           : this.sessions.unshift(res)
+        this.getSession();
         this.helperService.showSuccess('', 'Action success!!!');
       }
       modal.hide();
@@ -71,5 +72,9 @@ export class SessionComponent implements OnInit {
       role: roles
     }
     window.open(`${environment.apiUrl}ideas/download-zip?${new URLSearchParams(params).toString()}`);
+  }
+  pageChanged($event: PageChangedEvent) {
+    this.params.page = $event.page - 1;
+    this.getSession();
   }
 }

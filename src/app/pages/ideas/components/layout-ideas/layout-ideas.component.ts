@@ -61,4 +61,8 @@ export class LayoutIdeasComponent implements OnInit {
     this.ideas.unshift($event);
     this.total += 1;
   }
+  loadMore() {
+    this.params.page += 1;
+    this.getListIdeas();
+  }
 }

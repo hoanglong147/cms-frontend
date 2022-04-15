@@ -17,6 +17,7 @@ export class LayoutSessionComponent implements OnInit {
     size: PAGE_SIZE
   }
   sessions: IDepartmentResponse[] = [];
+  total = 0;
   constructor(
     private ideaService: IdeasService
   ) { }
@@ -29,10 +30,15 @@ export class LayoutSessionComponent implements OnInit {
     this.ideaService.getSession(this.params).subscribe(res => {
       if (res.code === STATUS_CODE.SUCCESS) {
         const { items, total } = res.data;
-        this.sessions = items;
+        this.sessions.push(...items);
+        this.total = total;
       }
-      console.log('sessions', res);
     })
+  }
+
+  loadMore() {
+    this.params.page += 1;
+    this.getSession();
   }
 
 }

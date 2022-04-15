@@ -13,6 +13,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 
@@ -31,7 +32,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgSelectModule,
     FontAwesomeModule,
     ModalModule.forRoot(),
-    AngularSvgIconModule.forRoot()
+    AngularSvgIconModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   exports: [
     FormsModule,
@@ -46,7 +48,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgSelectModule,
     FontAwesomeModule,
     ModalModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    PaginationModule
   ]
 })
 export class SharedModule {
