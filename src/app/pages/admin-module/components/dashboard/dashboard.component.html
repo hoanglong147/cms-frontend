@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row d-none">
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-body ">
@@ -34,7 +34,7 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:0}" >
+        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:0}">
           <!-- <i class="fa fa-refresh"></i> Update Now -->
           <fa-icon [icon]="['far','calendar-plus']" size="2x"></fa-icon> Update income now
         </div>
@@ -76,7 +76,7 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:1}" >
+        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:1}">
           <fa-icon [icon]="['far','calendar-plus']" size="2x"></fa-icon> Update expend now
         </div>
       </div>
@@ -199,7 +199,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row d-none">
   <div class="col-md-4">
     <div class="card ">
       <div class="card-header ">
@@ -241,7 +241,8 @@
         <hr />
         <div class="card-stats" *ngIf="summary.lastUpdate">
           <!-- <i class="fa fa-check"></i> Last update at  -->
-          <fa-icon [icon]="['far','clock']"></fa-icon> Last update at {{summary.lastUpdate| date: 'MMM, dd yyyy hh:mm a'}}
+          <fa-icon [icon]="['far','clock']"></fa-icon> Last update at
+          {{summary.lastUpdate| date: 'MMM, dd yyyy hh:mm a'}}
         </div>
       </div>
     </div>

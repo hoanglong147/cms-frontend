@@ -89,11 +89,12 @@ export class LoginComponent implements OnInit {
     this.helperService.markFormGroupTouched(this.registerForm);
     if (this.registerForm.invalid) return;
     // this.helperService.showFullLoading();
-    const { usr, pwd } = this.registerForm.value;
+    const { usr, pwd, name } = this.registerForm.value;
     this.loading = true;
     this.apiService.register({
-      username: usr,
-      password: pwd
+      username: name,
+      password: pwd,
+      email: usr
     }).subscribe((res) => {
       this.helperService.hideFullLoading();
       this.loading = false;
