@@ -15,7 +15,7 @@ export class IdeaItemComponent implements OnInit {
   @Input() idea: IIdeaResponse = {} as IIdeaResponse;
   @Input() isLike = false;
   @Input() set attachFile(attachFile: string) {
-    if (attachFile) { this.fileUrl = `${environment.apiUrl}ideas/attach/${attachFile.split('\\').splice(-1)[0]}`; }
+    if (attachFile) { this.fileUrl = `${environment.apiUrl}ideas/attach/${(new URL(attachFile)).pathname.split('/').splice(-1)[0]}`; }
   }
   sessionId = -1;
   fileUrl = '';
