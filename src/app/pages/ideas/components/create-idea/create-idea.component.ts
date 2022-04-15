@@ -41,7 +41,7 @@ export class CreateIdeaComponent implements OnInit {
       return;
     }
     this.form = this.fb.group({
-      categoryId: '',
+      categoryId: ['', Validators.required],
       description: ['', Validators.required],
       name: ['', Validators.required],
       startDate: queryParams['startDate'],

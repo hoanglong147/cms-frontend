@@ -26,6 +26,12 @@
         <option value="" selected>Select tag</option>
         <option [value]="item.id" *ngFor="let item of categories$ | async">{{item.name}}</option>
       </select>
+
+    </div>
+    <div class="w-100 text-end">
+      <span class="text-danger"
+        *ngIf="(form.controls.categoryId.dirty || form.controls.categoryId.touched) && form.controls.categoryId.errors">category
+        required</span>
     </div>
   </form>
 </div>
