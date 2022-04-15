@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
 import { IDepartmentResponse } from 'app/interfaces/serve-response';
+import { HelperService } from 'app/services/helper.service';
 import { SubjectService } from 'app/services/subject.service';
 import { environment } from 'environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -24,7 +25,8 @@ export class SessionComponent implements OnInit {
   constructor(
     private ideaService: IdeasService,
     private modalService: BsModalService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private helperService: HelperService
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class SessionComponent implements OnInit {
         index !== -1
           ? this.sessions.splice(index, 1, res)
           : this.sessions.unshift(res)
+        this.helperService.showSuccess('', 'Action success!!!');
       }
       modal.hide();
     })

@@ -32,16 +32,14 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.loginForm = this.fb.group({
-      username: ['thinh12', [Validators.required]],
+      username: ['thinh14', [Validators.required]],
       password: ['123', []]
     });
     this.registerForm = this.fb.group({
       usr: ['', [Validators.required, Validators.email]],
-      pwd: ['', [this.validatePassword]],
-      c_pwd: ['', [this.validatePassword]],
+      pwd: ['', [Validators.required]],
+      c_pwd: ['', [Validators.required]],
       name: ['', [Validators.required]]
-    }, {
-      validators: [this.checkConfirmPassword]
     })
   }
   validatePassword(group: FormControl): ValidationErrors | null {
@@ -99,9 +97,10 @@ export class LoginComponent implements OnInit {
     }).subscribe((res) => {
       this.helperService.hideFullLoading();
       this.loading = false;
-      if (res['code'] == STATUS_CODE.CREATED) {
-        this.success(res.data);
+      if (res['code'] == STATUS_CODE.SUCCESS) {
+        // this.success(res.data);
         this.helperService.showSuccess('', 'Register Success!!!');
+        this.signToggle();
       }
     }, (error) => {
       this.loading = false;

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalendarPlus, faCircle, faClock, faCreditCard, faEdit, faEnvelope, faEye, faFrown, far, faSmile, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faCameraRetro, faCity, faCoffee, faGlobeAsia, faMapMarkedAlt, faPaperclip, faPen, faPlus, fas, faTimes, faTrash, faCloudDownloadAlt, } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faCircle, faClock, faCreditCard, faEdit, faEnvelope, faEye, faFrown, far, faSmile, faTimesCircle, faThumbsDown, faThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { faCameraRetro, faCity, faCoffee, faGlobeAsia, faMapMarkedAlt, faPaperclip, faPen, faPlus, fas, faTimes, faTrash, faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DirectivesModule } from 'app/directives/directives.module';
@@ -53,7 +53,7 @@ export class SharedModule {
   constructor(private library: FaIconLibrary) {
     this.library.addIconPacks(fas, far);
     this.library.addIcons(faPlus, faCoffee, faCircle, faPen, faTrash,
-      faEdit, faEye, faTimes, faSmile, faFrown, faCreditCard, faClock,
+      faEdit, faEye, faTimes, faSmile, faFrown, faCreditCard, faClock, faThumbsDown, faThumbsUp,
       faMapMarkedAlt, faCity, faGlobeAsia, faEnvelope, faCameraRetro, faPaperclip, faCloudDownloadAlt);
     this.library.addIcons(faTimesCircle, faCalendarPlus)
   }

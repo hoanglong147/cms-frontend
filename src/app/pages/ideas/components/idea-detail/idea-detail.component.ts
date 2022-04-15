@@ -17,7 +17,8 @@ export class IdeaDetailComponent implements OnInit {
   params = {
     ideaId: -1,
     page: 0,
-    size: PAGE_SIZE
+    size: PAGE_SIZE,
+    staffId: -1
   }
   comments: string[] = [];
   totalComments = 0;
@@ -33,6 +34,7 @@ export class IdeaDetailComponent implements OnInit {
     if (params['sessionId'] && params['id']) {
       this.params.ideaId = params['id'];
       this.idea.departmentId = params['sessionId'];
+      this.params.staffId = this.subjectService.userInfo.getValue().userId;
       this.getDetailIdea();
     }
   }

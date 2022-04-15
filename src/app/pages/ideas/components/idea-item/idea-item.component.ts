@@ -15,11 +15,15 @@ export class IdeaItemComponent implements OnInit {
   @Input() idea: IIdeaResponse = {} as IIdeaResponse;
   @Input() isLike = false;
   @Input() set attachFile(attachFile: string) {
-    if (attachFile) { this.fileUrl = `${environment.apiUrl}ideas/attach/${(new URL(attachFile)).pathname.split('/').splice(-1)[0]}`; }
+    if (attachFile) {
+      this.fileName = (new URL(attachFile)).pathname.split('/').splice(-1)[0];
+      this.fileUrl = `${environment.apiUrl}ideas/attach/${this.fileName}`;
+    }
   }
   sessionId = -1;
   fileUrl = '';
   queryParams = {};
+  fileName = ''
   readonly LIKE_STATUS = LikeStatus;
   constructor(
     private activeRoute: ActivatedRoute,
@@ -37,19 +41,53 @@ export class IdeaItemComponent implements OnInit {
     if (!this.idea.likeStatus) {
       this.idea.likeStatus = this.LIKE_STATUS.INACTIVE;
     }
+    this.validateLike();
   }
 
-  likeIdea() {
-    this.idea.totalLike += 1;
-    this.idea.likeStatus += 1;
-    if (this.idea.likeStatus > 3) {
-      this.idea.likeStatus = this.LIKE_STATUS.INACTIVE;
-    }
+  likeIdea($event: MouseEvent, status: LikeStatus) {
+    $event.stopPropagation();
+    $event.preventDefault();
     const { userId } = this.subjectService.userInfo.getValue();
     this.ideaService.likeIdea({
       staffId: userId,
       ideaId: this.idea.ideaId,
-      status: this.idea.likeStatus,
+      status: this.configStatus(status),
     }).subscribe(res => console.log(res));
+  }
+
+  configStatus(status: LikeStatus) {
+    // unlike
+    if (this.idea.likeStatus === status) {
+      if (status === LikeStatus.DISLIKE) {
+        this.idea.totalDislike -= 1;
+      }
+      if (status === LikeStatus.LIKE) {
+        this.idea.totalLike -= 1;
+      }
+      this.validateLike();
+      this.idea.likeStatus = LikeStatus.INACTIVE;
+      return LikeStatus.INACTIVE;
+    }
+
+    let n = 1;
+    if (this.idea.likeStatus !== LikeStatus.INACTIVE) {
+      n = 2;
+      this.idea.totalDislike -= 1;
+      this.idea.totalLike -= 1;
+    }
+    if (status === LikeStatus.DISLIKE) {
+      this.idea.totalDislike += n;
+    }
+    if (status === LikeStatus.LIKE) {
+      this.idea.totalLike += n;
+    }
+    this.idea.likeStatus = status;
+
+    return status;
+  }
+
+  validateLike() {
+    this.idea.totalDislike = this.idea.totalDislike >= 0 ? this.idea.totalDislike : 0;
+    this.idea.totalLike = this.idea.totalLike >= 0 ? this.idea.totalLike : 0;
   }
 }

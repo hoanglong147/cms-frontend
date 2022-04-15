@@ -4,16 +4,20 @@
     <!-- <h5 class="card-title">Card title</h5> -->
     <h6 class="card-subtitle mb-2 text-muted">{{idea.name}}</h6>
     <p class="card-text">{{idea.description}}</p>
-    <span class="card-link text-primary" [ngClass]="{'active': idea.likeStatus !== LIKE_STATUS.INACTIVE}"
-      (click)="likeIdea()">
-      <svg-icon src="./assets/img/heart.svg" class="icon"></svg-icon> {{idea.totalLike}}
+    <span class="card-link text-primary" [ngClass]="{'active': idea.likeStatus === LIKE_STATUS.LIKE}"
+      (click)="likeIdea($event,LIKE_STATUS.LIKE)">
+      <fa-icon [icon]="['far','thumbs-up']"></fa-icon> {{idea.totalLike || 0}}
+    </span>
+    <span class="card-link text-primary" [ngClass]="{'active': idea.likeStatus === LIKE_STATUS.DISLIKE}"
+      (click)="likeIdea($event,LIKE_STATUS.DISLIKE)">
+      <fa-icon [icon]="['far','thumbs-down']"></fa-icon> {{idea.totalDislike || 0}}
     </span>
     <span class="card-link text-primary">
       <svg-icon src="./assets/img/comment.svg" class="icon"></svg-icon> {{idea.totalComment}}
     </span>
     <a class="attach-file text-primary bg-white text-decoration-none ms-2" *ngIf="fileUrl" [href]="this.fileUrl"
       target="_blank">
-      <fa-icon [icon]="['fas','paperclip']"></fa-icon> Get Attach file
+      <fa-icon [icon]="['fas','paperclip']"></fa-icon> {{fileName||'Get Attach file'}}
     </a>
   </div>
 </div>

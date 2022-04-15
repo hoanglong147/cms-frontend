@@ -19,7 +19,7 @@
     </textarea>
     <div class="d-flex align-items-center">
       <label class="btn-upload pointer" for="uploadFile">
-        <fa-icon [icon]="['fas','paperclip']"></fa-icon> <span>Attach File</span>
+        <fa-icon [icon]="['fas','paperclip']"></fa-icon> <span>{{fileUpload?.file?.name ||'Attach File'}}</span>
       </label>
       <select class="form-select form-select-sm tags-idea" aria-label=".form-select-sm example"
         formControlName="categoryId">

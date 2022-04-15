@@ -48,6 +48,7 @@ export interface IIdeaResponse {
   name: string;
   url: string;
   likeStatus: LikeStatus;
+  totalDislike: number;
 }
 
 export interface IStaffResponse {
@@ -65,6 +66,7 @@ export interface IIdeaDetailResponse {
   ideaId: number;
   detailComment: { items: string[], total: number };
   totalLike: number;
+  totalDislike: number;
   totalComment: number;
   description: string;
   ideaName: string;
