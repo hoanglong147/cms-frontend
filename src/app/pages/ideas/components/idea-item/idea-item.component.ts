@@ -19,6 +19,7 @@ export class IdeaItemComponent implements OnInit {
   }
   sessionId = -1;
   fileUrl = '';
+  queryParams = {};
   readonly LIKE_STATUS = LikeStatus;
   constructor(
     private activeRoute: ActivatedRoute,
@@ -29,6 +30,7 @@ export class IdeaItemComponent implements OnInit {
     if (params['sessionId']) {
       this.sessionId = params['sessionId'];
     }
+    this.queryParams = this.activeRoute.snapshot.queryParams;
   }
 
   ngOnInit(): void {

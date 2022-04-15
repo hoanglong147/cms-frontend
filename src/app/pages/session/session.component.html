@@ -1,9 +1,19 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between">
     <h4 class="card-title"> Session Management</h4>
-    <button class="btn btn-success" (click)="openModalAddEdit()">
-      <fa-icon [icon]="['fas','plus']"></fa-icon>
-    </button>
+    <div class="d-flex align-items-center w-50 justify-content-end">
+      <div class="mt-2 me-2 datePicker w-100">
+        <input type="text" placeholder="Idea date" class="form-control w-100" [(ngModel)]="date"
+          [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', adaptivePosition: true}"
+          bsDaterangepicker>
+      </div>
+      <button class="btn btn-info me-2" (click)="downloadZip()" [disabled]="date.length === 0">
+        <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
+      </button>
+      <button class="btn btn-success" (click)="openModalAddEdit()">
+        <fa-icon [icon]="['fas','plus']"></fa-icon>
+      </button>
+    </div>
   </div>
   <div class="card-body">
     <div class="table-responsive">

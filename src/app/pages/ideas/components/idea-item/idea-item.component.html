@@ -1,4 +1,5 @@
-<div class="card w-100 pointer" style="width: 18rem;" [routerLink]="['/ideas',sessionId,'detail',idea.ideaId]">
+<div class="card w-100 pointer" style="width: 18rem;" [routerLink]="['/ideas',sessionId,'detail',idea.ideaId]"
+  [queryParams]="queryParams">
   <div class="card-body">
     <!-- <h5 class="card-title">Card title</h5> -->
     <h6 class="card-subtitle mb-2 text-muted">{{idea.name}}</h6>

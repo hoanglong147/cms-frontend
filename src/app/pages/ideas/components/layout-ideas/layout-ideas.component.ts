@@ -22,6 +22,7 @@ export class LayoutIdeasComponent implements OnInit {
   ideas: IIdeaResponse[] = [];
   total = 0;
   userInfo$: Observable<IUser>;
+  showPostIdea = true;
   readonly ROLE = ROLE;
   constructor(
     private activeRoute: ActivatedRoute,

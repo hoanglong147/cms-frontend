@@ -8,7 +8,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand title" href="javascript:void(0)">{{ titles }}</a>
+      <a class="navbar-brand title invisible" href="javascript:void(0)">{{ titles }}</a>
     </div>
     <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseExample">
@@ -16,9 +16,9 @@
       <span class="navbar-toggler-bar navbar-kebab"></span>
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [collapse]="isCollapsed">
+    <div class="collapse navbar-collapse justify-content-end " id="collapseExample" [collapse]="isCollapsed">
       <form>
-        <div class="input-group no-border search-bar" dropdown [isAnimated]="true">
+        <div class="input-group no-border search-bar invisible" dropdown [isAnimated]="true">
           <input type="text" class="form-control search-input" placeholder="Search..." [(ngModel)]="searchString"
             (ngModelChange)="onSearch($event)" (keyup.enter)="onSearch($event.target.value)" dropdownToggle
             aria-controls="dropdown-search" id="input-search" [ngModelOptions]="{standalone: true}" />
@@ -49,7 +49,7 @@
             </p>
           </a>
         </li> -->
-        <li class="nav-item btn-rotate" dropdown container="body" [isAnimated]="true" (onShown)="onShown()">
+        <li class="nav-item btn-rotate invisible" dropdown container="body" [isAnimated]="true" (onShown)="onShown()">
           <a class="nav-link" dropdownToggle aria-controls="dropdown-basic" id="navbarDropdownMenuLink">
             <i class="nc-icon nc-bell-55"></i><span class="badge rounded-pill bg-danger fz-8" *ngIf="unRead > 0">{{
               unRead }}</span>

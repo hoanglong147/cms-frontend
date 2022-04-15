@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
 import { IDepartmentResponse } from 'app/interfaces/serve-response';
+import { SubjectService } from 'app/services/subject.service';
+import { environment } from 'environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { IdeasService } from '../ideas/services/ideas.service';
 import { AddEditSessionComponent } from './components/add-edit-session/add-edit-session.component';
@@ -18,9 +20,11 @@ export class SessionComponent implements OnInit {
     size: PAGE_SIZE
   }
   total = 0;
+  date = [];
   constructor(
     private ideaService: IdeasService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private subjectService: SubjectService
   ) { }
 
   ngOnInit(): void {
@@ -55,5 +59,14 @@ export class SessionComponent implements OnInit {
       modal.hide();
     })
   }
-
+  downloadZip() {
+    const [startDate, endDate] = this.date as Date[];
+    const { roles } = this.subjectService.userInfo.getValue();
+    const params = {
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      role: roles
+    }
+    window.open(`${environment.apiUrl}ideas/download-zip?${new URLSearchParams(params).toString()}`);
+  }
 }

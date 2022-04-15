@@ -27,11 +27,6 @@
         <option [value]="item.id" *ngFor="let item of categories$ | async">{{item.name}}</option>
       </select>
     </div>
-    <div class="w-100 mt-2 datePicker">
-      <input type="text" placeholder="Idea date" class="form-control" formControlName="date"
-        [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', adaptivePosition: true}"
-        bsDaterangepicker>
-    </div>
   </form>
 </div>
 <input type="file" id="uploadFile" class="d-none" appFileHandle (onFileHandleFinish)="onHandleFileFinish($event)"

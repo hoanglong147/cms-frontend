@@ -3,8 +3,9 @@
     <spending-idea-item *ngFor="let item of ideas" [idea]="item"></spending-idea-item>
   </div>
   <div class="col-3 position-fixed end-0">
-    <div class="card w-100" style="width: 18rem;" *ngIf="(userInfo$ | async).roles === ROLE.STAFF">
-      <spending-create-idea (onCreateIdea)="onCreateIdea($event)" [departmentId]="params.departmentId">
+    <div class="card w-100" style="width: 18rem;" *ngIf="(userInfo$ | async).roles === ROLE.STAFF && showPostIdea">
+      <spending-create-idea (onCreateIdea)="onCreateIdea($event)" [departmentId]="params.departmentId"
+        (onTimeout)="showPostIdea = false">
       </spending-create-idea>
     </div>
     <spending-filter-ideas-list (onSortChange)="onSortChange($event)"></spending-filter-ideas-list>
