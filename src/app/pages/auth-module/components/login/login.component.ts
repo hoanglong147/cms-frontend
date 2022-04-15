@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit {
     this.cookieService.set(STORAGE_KEY.ACCESS_TOKEN, token, 365, '/');
     this.cookieService.set(STORAGE_KEY.USER_INFO, JSON.stringify(data), 365, '/');
 
-    this.router.navigateByUrl('/ideas');
     this.subjectService.userInfo.next(data);
+    this.router.navigateByUrl('/ideas');
   }
 }
