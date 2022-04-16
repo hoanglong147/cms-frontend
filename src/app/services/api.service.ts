@@ -19,7 +19,7 @@ export class ApiService {
     return this.httpClient.post<ServerResponse<IUserAuthResponse>>(url, params);
   }
   getSummary() {
-    const url = `${environment.apiUrl}dashboard/summary`;
+    const url = `${environment.apiUrl}statistic`;
     return this.httpClient.get(url);
   }
   getHistory(params) {

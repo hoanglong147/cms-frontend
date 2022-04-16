@@ -1,4 +1,4 @@
-<div class="row d-none">
+<div class="row ">
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-body ">
@@ -25,8 +25,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Income</p>
-              <p class="card-title">{{summary.income |currency:'VND'}}
+              <p class="card-category">Avegare Idea / Session</p>
+              <p class="card-title">{{(summary.totalIdeas / (summary.totalDepartment || 1))}}
               <p>
             </div>
           </div>
@@ -34,7 +34,7 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:0}">
+        <div class="stats text-warning pointer">
           <!-- <i class="fa fa-refresh"></i> Update Now -->
           <fa-icon [icon]="['far','calendar-plus']" size="2x"></fa-icon> Update income now
         </div>
@@ -67,8 +67,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Expenditure</p>
-              <p class="card-title">{{summary.expenditure |currency:'VND'}}
+              <p class="card-category">Highest Like</p>
+              <p class="card-title">{{summary.highestLike}}
               <p>
             </div>
           </div>
@@ -76,8 +76,8 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats text-warning pointer" [routerLink]="['/settings']" [queryParams]="{type:1}">
-          <fa-icon [icon]="['far','calendar-plus']" size="2x"></fa-icon> Update expend now
+        <div class="stats text-warning pointer">
+          <fa-icon [icon]="['far','calendar-plus']" size="2x"></fa-icon> Highest Like
         </div>
       </div>
     </div>
@@ -113,8 +113,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Balance Month</p>
-              <p class="card-title">{{summary.balance_month |currency:'VND'}}
+              <p class="card-category">Avegare Comment / Ideas</p>
+              <p class="card-title">{{(summary.totalComment / (summary.totalLikes || 1))}}
               <p>
             </div>
           </div>
@@ -122,12 +122,9 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats text-success" *ngIf="summary.balance_month > 0">
-          <!-- <i class="fa fa-clock-o"></i> In the last hour -->
-          <fa-icon [icon]="['far','smile']" size="2x"></fa-icon> Your still have money
-        </div>
-        <div class="stats text-danger" *ngIf="summary.balance_month <= 0">
-          <fa-icon [icon]="['far','frown']" size="2x"></fa-icon> You don't have money
+        <div class="stats text-success">
+          <!-- <i class="fa fa-clock-o"></i>  -->
+          <fa-icon [icon]="['far','smile']" size="2x"></fa-icon> Avegare Comment / Ideas
         </div>
       </div>
     </div>
@@ -163,8 +160,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Rate</p>
-              <p class="card-title">{{(summary.saving_money*100) | number: '1.1-2'}}%
+              <p class="card-category">Avegare Like / Idea</p>
+              <p class="card-title">{{(summary.totalLikes/(summary.totalLikes || 1))}}
               <p>
             </div>
           </div>
@@ -173,8 +170,8 @@
       <div class="card-footer ">
         <hr>
         <div class="stats text-info fz-14">
-          <!-- <i class="fa fa-refresh"></i> Update now -->
-          <fa-icon [icon]="['far','credit-card']" size="2x"></fa-icon> Income / Income + Expend
+          <!-- <i class="fa fa-refresh"></i> Avegare Like / Idea -->
+          <fa-icon [icon]="['far','credit-card']" size="2x"></fa-icon> Avegare Like / Idea
         </div>
       </div>
     </div>
@@ -184,8 +181,8 @@
   <div class="col-md-12">
     <div class="card ">
       <div class="card-header ">
-        <h5 class="card-title">Money flow in 30 days</h5>
-        <p class="card-category">money performance</p>
+        <h5 class="card-title">Ideas in 1 years</h5>
+        <p class="card-category">idea quantity</p>
       </div>
       <div class="card-body ">
         <canvas id=chartHours width="400" height="100"></canvas>
