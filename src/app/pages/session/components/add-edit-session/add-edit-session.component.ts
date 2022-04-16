@@ -20,9 +20,11 @@ export class AddEditSessionComponent implements OnInit {
     private ideaService: IdeasService,
     private fb: FormBuilder,
     private helperService: HelperService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
+    this.minDate.setHours(0, 0, 0, 0);
     this.form = this.fb.group({
       name: [this.data.name || '', Validators.required],
       dateRange: ['', Validators.required],

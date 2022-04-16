@@ -1,6 +1,7 @@
 <div class="card pointer me-3" style="width: 18rem;">
   <div class="card-body" [routerLink]="['/ideas',session.id]"
-    [queryParams]="{startDate:session.startDate,endDate:session.closureDateIdea}">
+    [queryParams]="{startDate:session.startDate,endDate:session.closureDateIdea}" [ngClass]="{'no-click': !isAvailable}"
+    (click)="onClick()">
     <h5 class="card-title">{{session.name}}</h5>
     <p class="card-subtitle mb-2 text-muted">Creator: {{session.qaName}}
     </p>
