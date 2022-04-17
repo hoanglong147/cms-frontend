@@ -10,7 +10,7 @@ const AppRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'ideas'
+    redirectTo: '/'
   }
 ]
 

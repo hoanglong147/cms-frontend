@@ -19,7 +19,7 @@ export const AdminRoutes: Routes = [
         path: '',
         component: AdminLayoutComponent,
         children: [
-            { path: '', redirectTo: 'dashboard' },
+            { path: '', redirectTo: 'ideas' },
             { path: 'dashboard', component: DashboardComponent },
             { path: 'ideas', loadChildren: () => import('../ideas/ideas.module').then(m => m.IdeasModule) },
             { path: 'session', loadChildren: () => import('../session/session.module').then(m => m.SessionModule) },
