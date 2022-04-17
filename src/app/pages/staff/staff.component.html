@@ -22,7 +22,7 @@
             Email
           </th>
           <th>
-            Position
+            Role
           </th>
           <th class="text-center">
             Action
@@ -43,7 +43,7 @@
               {{item.email}}
             </td>
             <td>
-              {{item.position}}
+              {{item.role === 1 ? 'STAFF' : 'QA'}}
             </td>
             <td class="text-center">
               <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)">

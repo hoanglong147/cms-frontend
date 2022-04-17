@@ -26,7 +26,7 @@ export interface IDepartmentResponse {
   qaName: string;
   startDate: string;
   closureDateIdea: string;
-  clouserDate: string;
+  closureDate: string;
 }
 
 export interface ICategoryResponse {
@@ -64,7 +64,7 @@ export interface IStaffResponse {
 
 export interface IIdeaDetailResponse {
   ideaId: number;
-  detailComment: { items: string[], total: number };
+  detailComment: { items: ICommentResponse[], total: number };
   totalLike: number;
   totalDislike: number;
   totalComment: number;
@@ -79,4 +79,7 @@ export interface ICommentResponse {
   anonymous: boolean;
   staffId: number;
   ideaId: number;
+  staffName: string;
 }
+
+

@@ -82,11 +82,13 @@
           <span>Confirm Password</span>
           <input type="password" formControlName="c_pwd">
           <div *ngIf="registerForm.controls.c_pwd.touched">
-            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.required">Confirm Password required</span>
-            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.invalidConfirmPassword">Password not matched</span>
+            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.required">Confirm Password
+              required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.c_pwd.errors?.invalidConfirmPassword">Password not
+              matched</span>
           </div>
         </label>
-        <button type="button" class="submit" (click)="signUp()" spendingSpinButton [loading]="loading">Sign Up</button>
+        <button type="submit" class="submit" (click)="signUp()" spendingSpinButton [loading]="loading">Sign Up</button>
         <!-- <button type="button" class="fb-btn">Join with <span>facebook</span></button> -->
       </div>
     </form>

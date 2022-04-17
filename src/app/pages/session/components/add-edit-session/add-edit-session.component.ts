@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IDepartmentResponse } from 'app/interfaces/serve-response';
 import { IdeasService } from 'app/pages/ideas/services/ideas.service';
 import { HelperService } from 'app/services/helper.service';
+import { SubjectService } from 'app/services/subject.service';
 
 @Component({
   selector: 'spending-add-edit-session',
@@ -19,20 +20,23 @@ export class AddEditSessionComponent implements OnInit {
   constructor(
     private ideaService: IdeasService,
     private fb: FormBuilder,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private subjectService: SubjectService
   ) {
   }
 
   ngOnInit(): void {
     this.minDate.setHours(0, 0, 0, 0);
+    const { userId } = this.subjectService.userInfo.getValue();
     this.form = this.fb.group({
       name: [this.data.name || '', Validators.required],
       dateRange: ['', Validators.required],
-      closureDateIdea: ['', Validators.required]
+      closureDateIdea: ['', Validators.required],
+      id: userId
     });
     if (this.index !== -1) {
-      const { closureDateIdea, clouserDate, startDate } = this.data;
-      const dateRange = [new Date(startDate), new Date(clouserDate)];
+      const { closureDateIdea, closureDate, startDate } = this.data;
+      const dateRange = [new Date(startDate), new Date(closureDate)];
       this.form.patchValue({
         dateRange: dateRange,
         closureDateIdea: new Date(closureDateIdea)
@@ -50,7 +54,7 @@ export class AddEditSessionComponent implements OnInit {
       return;
     }
 
-    const { dateRange, closureDateIdea, name } = this.form.value;
+    const { dateRange, closureDateIdea, ...form } = this.form.value;
     const [startDate, closureDate] = dateRange as Date[];
 
     if (!this.validateDate(startDate, closureDate, closureDateIdea)) {
@@ -59,7 +63,7 @@ export class AddEditSessionComponent implements OnInit {
     }
 
     const params = {
-      name,
+      ...form,
       startDate: startDate.toISOString(),
       closureDate: closureDate.toISOString(),
       closureDateIdea: closureDateIdea.toISOString()

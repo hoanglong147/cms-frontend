@@ -1,3 +1,5 @@
+import { ICommentResponse } from "./serve-response";
+
 export interface IStaffRequest {
   username: string;
   name: string;
@@ -13,5 +15,7 @@ export interface ISessionRequest {
   startDate: string;
   closureDateIdea: string;
   closureDate: string;
+  id: number;
 }
 
+export type ICommentRequest = Omit<ICommentResponse, 'staffName'>;

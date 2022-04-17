@@ -20,6 +20,7 @@ export class CreateIdeaComponent implements OnInit {
   categories$: Observable<ICategoryResponse[]>;
   form: FormGroup;
   fileUpload: FileFinishPendingType = {} as FileFinishPendingType;
+  loading = false;
   @Output() onCreateIdea = new EventEmitter();
   @Output() onTimeoutIdea = new EventEmitter();
   constructor(
@@ -71,11 +72,13 @@ export class CreateIdeaComponent implements OnInit {
       formData.append(key, value as string);
     });
     formData.append('file', this.fileUpload.file);
+    this.loading = true;
     this.ideaService.createIdea(formData).subscribe(res => {
+      this.loading = false;
       if (res.code === STATUS_CODE.SUCCESS) {
         this.onCreateIdea.emit(res.data);
       }
-    });
+    }, err => this.loading = false);
   }
 
   checkTimeout() {

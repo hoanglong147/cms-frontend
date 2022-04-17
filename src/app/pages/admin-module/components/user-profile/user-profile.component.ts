@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { STATUS_CODE } from 'app/constant/constant';
-import { userProfile } from 'app/interfaces/model';
+import { IStaffResponse } from 'app/interfaces/serve-response';
 import { ApiService } from 'app/services/api.service';
 import { HelperService } from 'app/services/helper.service';
-import { Subscription } from 'rxjs';
+import { SubjectService } from 'app/services/subject.service';
+import { Observable, Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'spending-user-profile',
@@ -12,36 +12,35 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  unSubscrition:Subscription;
-  userProfile:userProfile = null;
+  unSubscrition: Subscription;
+  userProfile$: Observable<IStaffResponse> = {} as Observable<IStaffResponse>;
+  loading = true;
   constructor(
-    private activedRoute:ActivatedRoute,
-    private apiService:ApiService,
-    private helperService:HelperService
+    private apiService: ApiService,
+    private helperService: HelperService,
+    private subjectService: SubjectService
   ) {
     this.unSubscrition = new Subscription();
-    
-   }
+
+  }
 
   ngOnInit(): void {
-    const params = this.activedRoute.paramMap.subscribe(res => {
-      if(res.has('name') && res.has('id')){
-        console.log('res',res);
-        this.getUserProfile(res.get('id'));
-      }
-    });
-    this.unSubscrition.add(params);
+    const { userId } = this.subjectService.userInfo.getValue();
+    this.getUserProfile(userId);
   }
-  getUserProfile(id){
-    this.helperService.showFullLoading();
-    this.apiService.getUserProfile(id).subscribe((res:any) =>{
-      this.helperService.hideFullLoading();
-      if(res['code'] == STATUS_CODE.SUCCESS){
-        console.log('user profile',res);
-        const {data} = res;
-        this.userProfile = data;
-      }
-    },(error) => this.helperService.hideFullLoading());
+  getUserProfile(id) {
+    this.userProfile$ = this.apiService.getUserProfile(id).pipe(
+      tap(res => this.helperService.showFullLoading()),
+      map(response => response.data),
+      tap(res => this.helperService.hideFullLoading())
+    );
   }
 
+  onUpdated($event) {
+    if ($event) {
+      this.helperService.showSuccess('', 'Update success!!!');
+    } else {
+      this.helperService.showError('', 'Update failed!!!');
+    }
+  }
 }

@@ -77,4 +77,12 @@ export class SessionComponent implements OnInit {
     this.params.page = $event.page - 1;
     this.getSession();
   }
+  exportExcel(id: number) {
+    const params = {
+      departmentId: id + '',
+      sortBy: 'COMMENT'
+    };
+    const url = `${environment.apiUrl}ideas/export-all?${new URLSearchParams(params).toString()}`;
+    window.open(url);
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
-import { IIdeaDetailResponse, IIdeaResponse } from 'app/interfaces/serve-response';
+import { ICommentResponse, IIdeaDetailResponse, IIdeaResponse } from 'app/interfaces/serve-response';
 import { HelperService } from 'app/services/helper.service';
 import { SubjectService } from 'app/services/subject.service';
 import { IdeasService } from '../../services/ideas.service';
@@ -20,11 +20,12 @@ export class IdeaDetailComponent implements OnInit {
     size: PAGE_SIZE,
     staffId: -1
   }
-  comments: string[] = [];
+  comments: ICommentResponse[] = [];
   totalComments = 0;
   commentText = '';
   loading = false;
   total = 0;
+  isAnonymous = true;
   constructor(
     private activeRoute: ActivatedRoute,
     private ideaService: IdeasService,
@@ -49,6 +50,7 @@ export class IdeaDetailComponent implements OnInit {
         this.ideaDetail = res.data;
         this.idea = {
           ...this.idea,
+          ...this.ideaDetail,
           name: this.ideaDetail.ideaName,
           totalComment: this.ideaDetail.totalComment,
           totalLike: this.ideaDetail.totalLike,
@@ -76,16 +78,18 @@ export class IdeaDetailComponent implements OnInit {
     const { userId } = this.subjectService.userInfo.getValue();
     this.loading = true;
     this.ideaService.postComment({
-      anonymous: false,
+      anonymous: this.isAnonymous,
       content: this.commentText,
       ideaId: this.ideaDetail.ideaId,
       staffId: userId
     }).subscribe(res => {
       this.loading = false;
       if (res.code === STATUS_CODE.CREATED) {
-        this.comments.unshift(this.commentText);
+        res.data.staffName = this.isAnonymous ? '' : res.data.staffName;
+        this.comments.unshift(res.data);
         this.idea.totalComment += 1;
         this.commentText = '';
+        this.isAnonymous = true;
       }
     }, err => this.loading = false);
 

@@ -53,11 +53,14 @@
               {{item.closureDateIdea | date:'short'}}
             </td>
             <td class="text-right">
-              {{item.clouserDate | date:'short'}}
+              {{item.closureDate | date:'short'}}
             </td>
             <td class="text-center">
               <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)">
                 <fa-icon [icon]="['fas','edit']"></fa-icon>
+              </button>
+              <button class="btn btn-primary me-2" (click)="exportExcel(item.id)" title="export excel">
+                <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
               </button>
             </td>
           </tr>

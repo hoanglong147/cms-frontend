@@ -35,7 +35,8 @@ export const AdminRoutes: Routes = [
             { path: 'settings', component: SettingsComponent },
             { path: 'settings/:type', component: SettingsComponent },
             { path: 'settings/:type/:id', component: SettingsComponent },
-            { path: 'user/:name/:id', component: UserProfileComponent }
+            { path: 'user/:name/:id', component: UserProfileComponent },
+            { path: 'profile', component: UserProfileComponent }
         ],
         canActivate: [AuthGuard]
     },

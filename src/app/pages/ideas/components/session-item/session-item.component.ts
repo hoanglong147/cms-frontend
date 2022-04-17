@@ -19,7 +19,7 @@ export class SessionItemComponent implements OnInit {
     this.endDateIdea = new Date(this.session.closureDateIdea);
     const current = new Date();
     const startDate = new Date(this.session.startDate);
-    const endDate = new Date(this.session.clouserDate);
+    const endDate = new Date(this.session.closureDate);
     if (current.getTime() - startDate.getTime() < 0 || current.getTime() - endDate.getTime() > 0) {
       this.isAvailable = false;
     }

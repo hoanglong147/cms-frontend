@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PAGE_SIZE } from 'app/constant/constant';
-import { ISessionRequest } from 'app/interfaces/serve-request';
-import { ICommentResponse } from 'app/interfaces/serve-response';
+import { ICommentRequest, ISessionRequest } from 'app/interfaces/serve-request';
 import { ApiService } from 'app/services/api.service';
 
 @Injectable({
@@ -37,7 +36,7 @@ export class IdeasService {
     return this.apiService.getDetailIdea(params);
   }
 
-  postComment(params: ICommentResponse) {
+  postComment(params: ICommentRequest) {
     return this.apiService.postComment(params);
   }
 

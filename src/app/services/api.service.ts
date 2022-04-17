@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ICommentRequest } from 'app/interfaces/serve-request';
 import { ICategoryResponse, ICommentResponse, IDepartmentResponse, IIdeaDetailResponse, IIdeaResponse, IStaffResponse, IUserAuthResponse, ServerPaginationResponse, ServerResponse } from 'app/interfaces/serve-response';
 import { environment } from 'environments/environment';
 
@@ -67,8 +68,8 @@ export class ApiService {
     return this.httpClient.post(url, params);
   }
   getUserProfile(id) {
-    const url = `${environment.apiUrl}user/profile/${id}`;
-    return this.httpClient.get(url);
+    const url = `${environment.apiUrl}staff/${id}`;
+    return this.httpClient.get<ServerResponse<IStaffResponse>>(url);
   }
   getNotification(params) {
     const url = `${environment.apiUrl}notification`;
@@ -145,7 +146,7 @@ export class ApiService {
     return this.httpClient.get<ServerResponse<IIdeaDetailResponse>>(url, { params });
   }
 
-  postComment(params: ICommentResponse) {
+  postComment(params: ICommentRequest) {
     const url = `${environment.apiUrl}comment`;
     return this.httpClient.post<ServerResponse<ICommentResponse>>(url, params);
   }

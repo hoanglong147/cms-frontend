@@ -2,7 +2,9 @@
   <div class="col-8">
     <div class="card w-100" style="width: 18rem;" *ngFor="let item of comments">
       <div class="card-body">
-        <p class="card-text text-wrap">{{item}}</p>
+        <p class="card-subtitle mb-2 text-muted">{{item.staffName || 'Anonymous'}}
+        </p>
+        <p class="card-text text-wrap">{{item.content}}</p>
       </div>
     </div>
     <div class="w-50 d-flex justify-content-center" *ngIf="total !== 0 && comments.length < total">
@@ -16,8 +18,17 @@
     <div class="card w-100" style="width: 18rem;">
       <div class="card-body">
         <textarea name="comment" id="commnet" class="w-100 text-form" rows="5" [(ngModel)]="commentText"></textarea>
-        <button class="btn btn-primary btn-sm" (click)="postComment()" spendingSpinButton
-          [loading]="loading">Comment</button>
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-primary btn-sm" (click)="postComment()" spendingSpinButton
+            [loading]="loading">Comment</button>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" [(ngModel)]="isAnonymous"
+              style="opacity: 1;visibility: visible;">
+            <label class="form-check-label p-0" for="flexCheckChecked">
+              Anonymous
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>

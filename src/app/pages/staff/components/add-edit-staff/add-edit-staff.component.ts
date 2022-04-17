@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IStaffResponse } from 'app/interfaces/serve-response';
 import { HelperService } from 'app/services/helper.service';
@@ -11,7 +11,11 @@ import { StaffService } from '../../services/staff.service';
 })
 export class AddEditStaffComponent implements OnInit {
   @Output() onClose = new EventEmitter();
-  index: number = -1;
+  @Input() index: number = -1;
+  @Input() set user(user: IStaffResponse) {
+    this.data = user;
+    this.buildForm();
+  }
   data: IStaffResponse = {} as IStaffResponse;
   form: FormGroup;
   loading = false;
@@ -19,15 +23,20 @@ export class AddEditStaffComponent implements OnInit {
     private staffService: StaffService,
     private fb: FormBuilder,
     private helperService: HelperService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this.buildForm();
+  }
+
+  buildForm() {
     this.form = this.fb.group({
       name: [this.data.name || '', Validators.required],
       username: [this.data.username || '', Validators.required],
       password: ['', Validators.required],
-      email: [this.data.email || '', Validators.required],
-      position: [this.data.position || '', Validators.required],
+      email: [this.data.email || '', [Validators.required, Validators.email]],
       address: [this.data.address || '', Validators.required],
       role: [this.data.role || '1', Validators.required]
     });
@@ -36,6 +45,10 @@ export class AddEditStaffComponent implements OnInit {
       this.form.controls.password.setValidators(null);
       this.form.controls.username.disable();
       this.form.controls.username.setValidators(null);
+    }
+    if (this.index === -2) {
+      this.form.controls.role.disable();
+      this.form.controls.role.setValidators(null);
     }
   }
 
@@ -51,7 +64,7 @@ export class AddEditStaffComponent implements OnInit {
     this.loading = true;
     const api = this.index !== -1
       ? this.staffService.updateStaff({
-        ...this.form.value,
+        ...this.form.getRawValue(),
         password: '',
         username: this.data.username
       }, this.data.staffId)

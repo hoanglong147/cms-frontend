@@ -21,6 +21,7 @@ import { UpgradeComponent } from './components/upgrade/upgrade.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserComponent } from './components/user/user.component';
 import { ComponentsModule } from 'app/components/components.module';
+import { StaffModule } from '../staff/staff.module';
 
 
 
@@ -32,7 +33,8 @@ import { ComponentsModule } from 'app/components/components.module';
     RouterModule.forChild(AdminRoutes),
     SharedModule,
     FixedPluginModule,
-    ComponentsModule
+    ComponentsModule,
+    StaffModule
   ],
   declarations: [
     DashboardComponent,

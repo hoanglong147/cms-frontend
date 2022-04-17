@@ -20,6 +20,9 @@ import { AddEditStaffComponent } from './components/add-edit-staff/add-edit-staf
     RouterModule.forChild([
       { path: '', component: StaffComponent }
     ])
+  ],
+  exports: [
+    AddEditStaffComponent
   ]
 })
 export class StaffModule { }

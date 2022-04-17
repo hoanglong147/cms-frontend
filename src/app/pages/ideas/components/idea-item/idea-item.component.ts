@@ -47,25 +47,23 @@ export class IdeaItemComponent implements OnInit {
   likeIdea($event: MouseEvent, status: LikeStatus) {
     $event.stopPropagation();
     $event.preventDefault();
+    const statusUpdated = this.configStatus(status);
+
+    if (statusUpdated === LikeStatus.INACTIVE) {
+      return;
+    }
+
     const { userId } = this.subjectService.userInfo.getValue();
     this.ideaService.likeIdea({
       staffId: userId,
       ideaId: this.idea.ideaId,
-      status: this.configStatus(status),
+      status: statusUpdated,
     }).subscribe(res => console.log(res));
   }
 
   configStatus(status: LikeStatus) {
     // unlike
     if (this.idea.likeStatus === status) {
-      if (status === LikeStatus.DISLIKE) {
-        this.idea.totalDislike -= 1;
-      }
-      if (status === LikeStatus.LIKE) {
-        this.idea.totalLike -= 1;
-      }
-      this.validateLike();
-      this.idea.likeStatus = LikeStatus.INACTIVE;
       return LikeStatus.INACTIVE;
     }
 

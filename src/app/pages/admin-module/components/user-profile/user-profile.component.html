@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-4 m-auto">
         <div class="card card-user">
             <div class="image">
@@ -38,4 +38,9 @@
 <div class="bg-container">
     <img src="../../../../../assets/img/jan-sendereks.jpg" alt="">
 </div>
-<div class="bg-container blur-cover"></div>
+<div class="bg-container blur-cover"></div> -->
+<div class="card w-50 m-auto" *ngIf="(userProfile$ | async) || {}; let user">
+    <div class="card-body">
+        <spending-add-edit-staff [user]="user" [index]="-2" (onClose)="onUpdated($event)"></spending-add-edit-staff>
+    </div>
+</div>

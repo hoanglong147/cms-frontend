@@ -23,6 +23,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/session', title: 'Sessions', icon: 'nc-single-02', class: '', auth: [ROLE.QA] },
     { path: '/category', title: 'Category', icon: 'nc-settings-gear-65', class: '', auth: [ROLE.ADMIN, ROLE.QA] },
     { path: '/staff', title: 'Staffs', icon: 'nc-circle-10', class: '', auth: [ROLE.ADMIN] },
+    { path: '/profile', title: 'Profile', icon: 'nc-diamond', class: '', auth: [ROLE.QA, ROLE.STAFF] },
     // { path: '/icons', title: 'Icons', icon: 'nc-diamond', class: '' },
     // { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '' },
     // { path: '/notifications', title: 'Notifications', icon: 'nc-bell-55', class: '' },
