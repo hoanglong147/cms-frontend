@@ -19,7 +19,6 @@ export const AdminRoutes: Routes = [
         path: '',
         component: AdminLayoutComponent,
         children: [
-            { path: '', redirectTo: 'ideas' },
             { path: 'dashboard', component: DashboardComponent },
             { path: 'ideas', loadChildren: () => import('../ideas/ideas.module').then(m => m.IdeasModule) },
             { path: 'session', loadChildren: () => import('../session/session.module').then(m => m.SessionModule) },
@@ -36,7 +35,8 @@ export const AdminRoutes: Routes = [
             { path: 'settings/:type', component: SettingsComponent },
             { path: 'settings/:type/:id', component: SettingsComponent },
             { path: 'user/:name/:id', component: UserProfileComponent },
-            { path: 'profile', component: UserProfileComponent }
+            { path: 'profile', component: UserProfileComponent },
+            { path: '', redirectTo: 'ideas' },
         ],
         canActivate: [AuthGuard]
     },

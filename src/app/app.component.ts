@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { STORAGE_KEY } from './constant/constant';
 import { SubjectService } from './services/subject.service';
@@ -13,7 +14,8 @@ export class AppComponent {
   fullLoading: boolean = false;
   constructor(
     private subjectService: SubjectService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router:Router
   ) { }
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -23,6 +25,11 @@ export class AppComponent {
     })
     if (!this.subjectService.userInfo.getValue() && this.cookieService.get(STORAGE_KEY.USER_INFO)) {
       this.subjectService.userInfo.next(JSON.parse(this.cookieService.get(STORAGE_KEY.USER_INFO)));
+      setTimeout(() => {
+        if(!window.location.pathname || window.location.pathname === '/') {
+          this.router.navigateByUrl('/ideas').then(res => console.log('routing'));
+        }
+      }, 300);
     }
 
   }
