@@ -32,14 +32,15 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.loginForm = this.fb.group({
-      username: ['thinh14', [Validators.required]],
-      password: ['123', []]
+      username: ['', [Validators.required]],
+      password: ['', []]
     });
     this.registerForm = this.fb.group({
       usr: ['', [Validators.required, Validators.email]],
       pwd: ['', [Validators.required]],
       c_pwd: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required]],
+      position: 'Dev'
     })
   }
   validatePassword(group: FormControl): ValidationErrors | null {
@@ -89,12 +90,14 @@ export class LoginComponent implements OnInit {
     this.helperService.markFormGroupTouched(this.registerForm);
     if (this.registerForm.invalid) return;
     // this.helperService.showFullLoading();
-    const { usr, pwd, name } = this.registerForm.value;
+    const { usr, pwd, name, position } = this.registerForm.value;
     this.loading = true;
     this.apiService.register({
       username: name,
       password: pwd,
-      email: usr
+      email: usr,
+      role: 1,
+      position
     }).subscribe((res) => {
       this.helperService.hideFullLoading();
       this.loading = false;

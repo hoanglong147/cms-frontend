@@ -57,7 +57,7 @@
             </td>
             <td class="text-center">
               <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)"
-                [disabled]="(user$ | async)?.userId === item.qaId">
+                [disabled]="(user$ | async)?.userId !== item.qaId">
                 <fa-icon [icon]="['fas','edit']"></fa-icon>
               </button>
               <button class="btn btn-primary me-2" (click)="exportExcel(item.id)" title="export excel">
@@ -68,7 +68,7 @@
         </tbody>
       </table>
       <pagination [totalItems]="total" [itemsPerPage]="params.size" [maxSize]="5" [rotate]="true"
-        (pageChanged)="pageChanged($event)"></pagination>
+        (pageChanged)="pageChanged($event)" *ngIf="total"></pagination>
     </div>
   </div>
 </div>

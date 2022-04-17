@@ -21,6 +21,7 @@ export class CreateIdeaComponent implements OnInit {
   form: FormGroup;
   fileUpload: FileFinishPendingType = {} as FileFinishPendingType;
   loading = false;
+  endDateIdea = new Date();
   @Output() onCreateIdea = new EventEmitter();
   @Output() onTimeoutIdea = new EventEmitter();
   constructor(
@@ -35,6 +36,8 @@ export class CreateIdeaComponent implements OnInit {
   ngOnInit(): void {
     const userInfo = this.subjectService.userInfo.getValue();
     this.categories$ = this.categoryService.getAllCategory();
+    const { endDate } = this.activeRoute.snapshot.queryParams;
+    this.endDateIdea = new Date(endDate);
     const queryParams = this.activeRoute.snapshot.queryParams;
     if (this.checkTimeout()) {
       this.helperService.showError('', 'Time post idea out');
@@ -77,6 +80,7 @@ export class CreateIdeaComponent implements OnInit {
       this.loading = false;
       if (res.code === STATUS_CODE.SUCCESS) {
         this.onCreateIdea.emit(res.data);
+        this.helperService.showSuccess('', 'Create idea success!!!');
       }
     }, err => this.loading = false);
   }

@@ -6,6 +6,12 @@
       <button type="submit" class="btn btn-primary btn-submit" spendingSpinButton [loading]="loading"
         [disabled]="loading">Submit</button>
     </div>
+    <div>
+      <p class="card-text">
+        Time post idea remaining:
+      </p>
+      <spending-count-down [endDate]="endDateIdea" (onTimeout)="onTimeoutIdea.emit()"></spending-count-down>
+    </div>
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Title</label>
       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Put your title here"

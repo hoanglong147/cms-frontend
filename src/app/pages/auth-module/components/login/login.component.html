@@ -26,7 +26,6 @@
           <span class="text-danger">Password must include at least 8 characters, 1 uppercase & lowercase letter</span>
         </div>
       </label>
-      <p class="forgot-pass">Forgot password?</p>
       <button type="submit" class="submit" (click)="login()" spendingSpinButton [loading]="loading">Sign In</button>
       <!-- <button type="button" class="fb-btn">Connect with <span>facebook</span></button> -->
     </div>
@@ -48,12 +47,12 @@
     </div>
     <form>
       <div class="form sign-up" [formGroup]="registerForm">
-        <h2>Time to feel like home,</h2>
+        <h2>Register</h2>
         <label>
-          <span>Name</span>
+          <span>Username</span>
           <input type="text" formControlName="name" />
           <div *ngIf="registerForm.controls.name.touched && registerForm.controls.name.errors?.required">
-            <span class="text-danger">Name required</span>
+            <span class="text-danger">Username required</span>
           </div>
 
         </label>
@@ -66,6 +65,14 @@
           <div *ngIf="registerForm.controls.usr.touched && registerForm.controls.usr.errors?.email">
             <span class="text-danger">Email invalid</span>
           </div>
+        </label>
+        <label>
+          <span>Position</span>
+          <select class="form-select register" aria-label="Position" formControlName="position">
+            <option value="Dev">Dev</option>
+            <option value="Ba">Ba</option>
+            <option value="Design">Design</option>
+          </select>
         </label>
         <label>
           <span>Password</span>

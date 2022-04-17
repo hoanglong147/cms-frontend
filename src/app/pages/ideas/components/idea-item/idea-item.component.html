@@ -2,7 +2,7 @@
   [queryParams]="queryParams">
   <div class="card-body">
     <h5 class="card-title">{{idea.name}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{idea.creatorName}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Position: {{idea.creatorName}}</h6>
     <p class="card-text">{{idea.description}}</p>
     <span class="card-link text-primary" [ngClass]="{'active': idea.likeStatus === LIKE_STATUS.LIKE}"
       (click)="likeIdea($event,LIKE_STATUS.LIKE)">

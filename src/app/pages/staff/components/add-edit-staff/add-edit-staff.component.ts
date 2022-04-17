@@ -13,8 +13,10 @@ export class AddEditStaffComponent implements OnInit {
   @Output() onClose = new EventEmitter();
   @Input() index: number = -1;
   @Input() set user(user: IStaffResponse) {
-    this.data = user;
-    this.buildForm();
+    if (user) {
+      this.data = user;
+      this.buildForm();
+    }
   }
   data: IStaffResponse = {} as IStaffResponse;
   form: FormGroup;
@@ -37,8 +39,8 @@ export class AddEditStaffComponent implements OnInit {
       username: [this.data.username || '', Validators.required],
       password: ['', Validators.required],
       email: [this.data.email || '', [Validators.required, Validators.email]],
-      address: [this.data.address || '', Validators.required],
-      role: [this.data.role || '1', Validators.required]
+      role: [this.data.role || '1', Validators.required],
+      position: this.data.position || 'Dev'
     });
     if (this.index !== -1) {
       this.form.controls.password.disable();
@@ -49,6 +51,7 @@ export class AddEditStaffComponent implements OnInit {
     if (this.index === -2) {
       this.form.controls.role.disable();
       this.form.controls.role.setValidators(null);
+      this.form.controls.position.disable();
     }
   }
 

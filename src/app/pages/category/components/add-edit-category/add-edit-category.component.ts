@@ -24,6 +24,9 @@ export class AddEditCategoryComponent implements OnInit {
       name: [this.data.name || '', Validators.required],
       active: this.data.active ?? true
     });
+    if (this.index !== -1) {
+      this.form.controls.active.disable();
+    }
   }
 
   close(data: any) {
@@ -33,8 +36,8 @@ export class AddEditCategoryComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const api = this.index !== -1
-      ? this.categoryService.updateCategory(this.form.value, this.index, this.data.id)
-      : this.categoryService.createCategory(this.form.value)
+      ? this.categoryService.updateCategory(this.form.getRawValue(), this.index, this.data.id)
+      : this.categoryService.createCategory(this.form.getRawValue())
     api.subscribe(res => {
       this.close(res);
       this.loading = false;

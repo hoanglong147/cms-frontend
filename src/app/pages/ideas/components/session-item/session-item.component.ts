@@ -10,6 +10,7 @@ import { HelperService } from 'app/services/helper.service';
 export class SessionItemComponent implements OnInit {
   @Input() session: IDepartmentResponse = {} as IDepartmentResponse;
   endDateIdea = new Date();
+  endDateSession = new Date();
   isAvailable = true;
   constructor(
     private helperService: HelperService
@@ -17,6 +18,7 @@ export class SessionItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.endDateIdea = new Date(this.session.closureDateIdea);
+    this.endDateSession = new Date(this.session.closureDate);
     const current = new Date();
     const startDate = new Date(this.session.startDate);
     const endDate = new Date(this.session.closureDate);

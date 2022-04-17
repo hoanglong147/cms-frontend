@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'spending-count-down',
@@ -13,6 +13,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
   _day = this._hour * 24;
   displayTime: { value: number, label: string }[] = [];
   timer: any;
+  @Output() onTimeout = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
     if (distance < 0) {
       clearInterval(this.timer);
       this.displayTime = [];
+      this.onTimeout.emit();
       return;
     }
     const days = Math.floor(distance / this._day);

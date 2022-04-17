@@ -34,7 +34,7 @@
               {{item.name}}
             </td>
             <td>
-              {{item.active}}
+              {{item.active ? 'Used' : 'not used'}}
             </td>
             <td>
               {{item.createdDate | date:'medium'}}
@@ -43,7 +43,7 @@
               <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)">
                 <fa-icon [icon]="['fas','edit']"></fa-icon>
               </button>
-              <button class="btn btn-danger" (click)="deleteCategory(item.id,$index)">
+              <button class="btn btn-danger" (click)="deleteCategory(item.id,$index)" [disabled]="item.active">
                 <fa-icon [icon]="['fas','trash']"></fa-icon>
               </button>
             </td>

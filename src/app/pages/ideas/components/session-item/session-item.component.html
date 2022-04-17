@@ -1,7 +1,7 @@
 <div class="card pointer me-3" style="width: 18rem;">
   <div class="card-body" [routerLink]="['/ideas',session.id]"
-    [queryParams]="{startDate:session.startDate,endDate:session.closureDateIdea}" [ngClass]="{'no-click': !isAvailable}"
-    (click)="onClick()">
+    [queryParams]="{startDate:session.startDate,endDate:session.closureDateIdea,closeDate:session.closureDate}"
+    [ngClass]="{'no-click': !isAvailable}" (click)="onClick()">
     <h5 class="card-title">{{session.name}}</h5>
     <p class="card-subtitle mb-2 text-muted">Creator: {{session.qaName}}
     </p>
@@ -9,5 +9,9 @@
       Time post idea remaining:
     </p>
     <spending-count-down [endDate]="endDateIdea"></spending-count-down>
+    <p class="card-text">
+      Time session remaining:
+    </p>
+    <spending-count-down [endDate]="endDateSession"></spending-count-down>
   </div>
 </div>
