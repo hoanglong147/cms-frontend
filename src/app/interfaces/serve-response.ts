@@ -24,6 +24,7 @@ export interface IDepartmentResponse {
   id: number;
   name: string;
   qaName: string;
+  qaId: number;
   startDate: string;
   closureDateIdea: string;
   closureDate: string;
@@ -49,6 +50,7 @@ export interface IIdeaResponse {
   url: string;
   likeStatus: LikeStatus;
   totalDislike: number;
+  creatorName: string;
 }
 
 export interface IStaffResponse {
@@ -72,6 +74,7 @@ export interface IIdeaDetailResponse {
   ideaName: string;
   url: string;
   likeStatus: LikeStatus;
+  creatorName: string;
 }
 
 export interface ICommentResponse {

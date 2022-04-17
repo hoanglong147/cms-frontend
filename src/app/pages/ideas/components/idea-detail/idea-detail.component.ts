@@ -65,7 +65,7 @@ export class IdeaDetailComponent implements OnInit {
   getComment() {
     this.ideaService.getDetailIdea(this.params).subscribe(res => {
       if (res.code === STATUS_CODE.SUCCESS) {
-        this.comments = res.data.detailComment.items;
+        this.comments.push(...res.data.detailComment.items);
         this.total = res.data.detailComment.total;
       }
     })

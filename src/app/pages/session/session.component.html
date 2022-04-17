@@ -56,7 +56,8 @@
               {{item.closureDate | date:'short'}}
             </td>
             <td class="text-center">
-              <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)">
+              <button class="btn btn-primary me-2" (click)="openModalAddEdit($index,item)"
+                [disabled]="(user$ | async)?.userId === item.qaId">
                 <fa-icon [icon]="['fas','edit']"></fa-icon>
               </button>
               <button class="btn btn-primary me-2" (click)="exportExcel(item.id)" title="export excel">

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PAGE_SIZE, STATUS_CODE } from 'app/constant/constant';
+import { IUser } from 'app/interfaces/model';
 import { IDepartmentResponse } from 'app/interfaces/serve-response';
 import { HelperService } from 'app/services/helper.service';
 import { SubjectService } from 'app/services/subject.service';
 import { environment } from 'environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Observable } from 'rxjs';
 import { IdeasService } from '../ideas/services/ideas.service';
 import { AddEditSessionComponent } from './components/add-edit-session/add-edit-session.component';
 
@@ -23,6 +25,7 @@ export class SessionComponent implements OnInit {
   }
   total = 0;
   date = [];
+  user$: Observable<IUser>;
   constructor(
     private ideaService: IdeasService,
     private modalService: BsModalService,
@@ -31,6 +34,7 @@ export class SessionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user$ = this.subjectService.userInfo;
     this.getSession();
   }
 

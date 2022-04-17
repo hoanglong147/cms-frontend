@@ -1,8 +1,8 @@
 <div class="card w-100 pointer" style="width: 18rem;" [routerLink]="['/ideas',sessionId,'detail',idea.ideaId]"
   [queryParams]="queryParams">
   <div class="card-body">
-    <!-- <h5 class="card-title">Card title</h5> -->
-    <h6 class="card-subtitle mb-2 text-muted">{{idea.name}}</h6>
+    <h5 class="card-title">{{idea.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{idea.creatorName}}</h6>
     <p class="card-text">{{idea.description}}</p>
     <span class="card-link text-primary" [ngClass]="{'active': idea.likeStatus === LIKE_STATUS.LIKE}"
       (click)="likeIdea($event,LIKE_STATUS.LIKE)">

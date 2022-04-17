@@ -1,6 +1,7 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left m-0">Staff</h4>
-  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close(null)">
+  <h4 class="modal-title pull-left m-0">{{index === -2 ? 'Change Information' : 'Staff'}}</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close(null)"
+    *ngIf="index !== -2">
     <span aria-hidden="true" class="visually-hidden">&times;</span>
   </button>
 </div>
