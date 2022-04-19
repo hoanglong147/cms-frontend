@@ -1,5 +1,5 @@
+<h1>List Sessions</h1>
 <div class="d-flex flex-wrap">
-  <h1>List Sessions</h1>
   <spending-session-item *ngFor="let item of sessions" [session]="item"></spending-session-item>
 </div>
 <div class="w-50 d-flex justify-content-center" *ngIf="total !== 0 && sessions.length < total">
