@@ -22,6 +22,7 @@ export class CreateIdeaComponent implements OnInit {
   fileUpload: FileFinishPendingType = {} as FileFinishPendingType;
   loading = false;
   endDateIdea = new Date();
+  agree = true;
   @Output() onCreateIdea = new EventEmitter();
   @Output() onTimeoutIdea = new EventEmitter();
   constructor(
@@ -46,7 +47,7 @@ export class CreateIdeaComponent implements OnInit {
       startDate: queryParams['startDate'],
       endDate: queryParams['endDate'],
       userId: userInfo.userId,
-      departmentId: this.departmentId
+      departmentId: this.departmentId,
     })
     if (this.checkTimeout()) {
       this.helperService.showError('', 'Time post idea out');
@@ -59,6 +60,10 @@ export class CreateIdeaComponent implements OnInit {
   onSubmit() {
     this.helperService.markFormGroupTouched(this.form);
     if (this.form.invalid) {
+      return;
+    }
+    if (!this.agree) {
+      this.helperService.showError('', 'You must agree term and service')
       return;
     }
     if (!this.fileUpload.file) {

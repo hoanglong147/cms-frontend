@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-8">
+    <h1>List Idea</h1>
     <spending-idea-item *ngFor="let item of ideas" [idea]="item"></spending-idea-item>
     <div class="w-50 d-flex justify-content-center" *ngIf="total !== 0 && ideas.length < total">
       <button class="btn btn-primary" (click)="loadMore()">Load More</button>

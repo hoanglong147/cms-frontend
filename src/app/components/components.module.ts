@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from 'app/shared/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CountDownComponent } from './count-down/count-down.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 
 
@@ -14,7 +15,8 @@ import { CountDownComponent } from './count-down/count-down.component';
     SidebarComponent,
     FooterComponent,
     NavbarComponent,
-    CountDownComponent
+    CountDownComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule,
