@@ -39,11 +39,6 @@ export class CreateIdeaComponent implements OnInit {
     const { endDate } = this.activeRoute.snapshot.queryParams;
     this.endDateIdea = new Date(endDate);
     const queryParams = this.activeRoute.snapshot.queryParams;
-    if (this.checkTimeout()) {
-      this.helperService.showError('', 'Time post idea out');
-      this.onTimeoutIdea.emit();
-      return;
-    }
     this.form = this.fb.group({
       categoryId: ['', Validators.required],
       description: ['', Validators.required],
@@ -53,6 +48,12 @@ export class CreateIdeaComponent implements OnInit {
       userId: userInfo.userId,
       departmentId: this.departmentId
     })
+    if (this.checkTimeout()) {
+      this.helperService.showError('', 'Time post idea out');
+      this.onTimeoutIdea.emit();
+      return;
+    }
+
   }
 
   onSubmit() {
